@@ -84,20 +84,33 @@ export const gradients = {
 } as const;
 
 // ── Typography ──
+// Heebo is placed first for Hebrew support, Roboto for Latin, Poppins for display
 export const typography = {
-  fontFamilyBase: '"Roboto", sans-serif',
-  fontFamilyTitle: '"Roboto", sans-serif',
-  fontFamilyPoppins: '"Poppins", sans-serif',
-  fontFamilyOpenSans: '"Open Sans", sans-serif',
-  fontFamilyNunitoSans: '"Nunito Sans", sans-serif',
-  fontSizeBase: '0.875rem',  // 14px
-  h1: '2.25rem',    // 36px
-  h2: '1.875rem',   // 30px
-  h3: '1.5rem',     // 24px
-  h4: '1.125rem',   // 18px
-  h5: '1rem',       // 16px
-  h6: '0.938rem',   // ~15px
+  fontFamilyBase: '"Heebo Variable", "Roboto", "Poppins", sans-serif',
+  fontFamilyTitle: '"Heebo Variable", "Roboto", "Poppins", sans-serif',
+  fontFamilyPoppins: '"Poppins", "Heebo Variable", sans-serif',
+  fontFamilyOpenSans: '"Open Sans", "Heebo Variable", sans-serif',
+  fontFamilyNunitoSans: '"Nunito Sans", "Heebo Variable", sans-serif',
+  fontSizeBase: '0.9375rem', // 15px — bumped from 14px for readability
+  h1: '2.25rem',     // 36px
+  h2: '1.875rem',    // 30px
+  h3: '1.5rem',      // 24px
+  h4: '1.125rem',    // 18px
+  h5: '1rem',        // 16px
+  h6: '0.9375rem',   // 15px
   headingWeight: 500,
+  // ── Weight scale ──
+  weight: {
+    thin: 100,
+    extraLight: 200,
+    light: 300,
+    regular: 400,
+    medium: 500,
+    semiBold: 600,
+    bold: 700,
+    extraBold: 800,
+    black: 900,
+  },
 } as const;
 
 // ── Spacing & Radius ──

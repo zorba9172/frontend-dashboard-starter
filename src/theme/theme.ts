@@ -27,61 +27,79 @@ const sharedOptions: ThemeOptions = {
   },
   typography: {
     fontFamily: typoTokens.fontFamilyBase,
-    fontSize: 14,
-    fontWeightRegular: 400,
-    fontWeightMedium: 500,
-    fontWeightBold: 700,
+    fontSize: 15, // bumped from 14
+    fontWeightLight: typoTokens.weight.light,
+    fontWeightRegular: typoTokens.weight.regular,
+    fontWeightMedium: typoTokens.weight.medium,
+    fontWeightBold: typoTokens.weight.bold,
     h1: {
-      fontSize: typoTokens.h1,
-      fontWeight: 700,
+      fontSize: typoTokens.h1,      // 36px
+      fontWeight: typoTokens.weight.bold,
       lineHeight: 1.2,
+      letterSpacing: '-0.01em',
     },
     h2: {
-      fontSize: typoTokens.h2,
-      fontWeight: 700,
+      fontSize: typoTokens.h2,      // 30px
+      fontWeight: typoTokens.weight.bold,
       lineHeight: 1.3,
+      letterSpacing: '-0.005em',
     },
     h3: {
-      fontSize: typoTokens.h3,
-      fontWeight: 700,
+      fontSize: typoTokens.h3,      // 24px
+      fontWeight: typoTokens.weight.bold,
       lineHeight: 1.4,
     },
     h4: {
-      fontSize: typoTokens.h4,
-      fontWeight: 600,
+      fontSize: typoTokens.h4,      // 18px
+      fontWeight: typoTokens.weight.semiBold,
       lineHeight: 1.4,
     },
     h5: {
-      fontSize: typoTokens.h5,
-      fontWeight: 600,
+      fontSize: typoTokens.h5,      // 16px
+      fontWeight: typoTokens.weight.semiBold,
       lineHeight: 1.5,
     },
     h6: {
-      fontSize: typoTokens.h6,
-      fontWeight: 600,
+      fontSize: typoTokens.h6,      // 15px
+      fontWeight: typoTokens.weight.semiBold,
       lineHeight: 1.5,
     },
     subtitle1: {
-      fontSize: '1rem',
-      fontWeight: 500,
+      fontSize: '1rem',             // 16px
+      fontWeight: typoTokens.weight.medium,
+      lineHeight: 1.5,
     },
     subtitle2: {
-      fontSize: '0.875rem',
-      fontWeight: 500,
+      fontSize: '0.9375rem',        // 15px — bumped from 14px
+      fontWeight: typoTokens.weight.medium,
+      lineHeight: 1.5,
     },
     body1: {
-      fontSize: '0.875rem',
-      fontWeight: 400,
-      lineHeight: 1.6,
+      fontSize: '0.9375rem',        // 15px — bumped from 14px
+      fontWeight: typoTokens.weight.regular,
+      lineHeight: 1.65,
     },
     body2: {
-      fontSize: '0.8125rem',
-      fontWeight: 400,
-      lineHeight: 1.6,
+      fontSize: '0.875rem',         // 14px — bumped from 13px
+      fontWeight: typoTokens.weight.regular,
+      lineHeight: 1.65,
+    },
+    caption: {
+      fontSize: '0.8125rem',        // 13px — bumped from 12px
+      fontWeight: typoTokens.weight.regular,
+      lineHeight: 1.5,
+    },
+    overline: {
+      fontSize: '0.75rem',          // 12px
+      fontWeight: typoTokens.weight.semiBold,
+      lineHeight: 1.5,
+      letterSpacing: '0.08em',
+      textTransform: 'uppercase',
     },
     button: {
-      fontWeight: 500,
+      fontWeight: typoTokens.weight.medium,
       textTransform: 'none',
+      fontSize: '0.9375rem',        // 15px
     },
   },
 };
