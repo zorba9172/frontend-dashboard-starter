@@ -83,7 +83,7 @@ const ForgotPasswordPage: React.FC = () => {
                 },
               }}
             >
-              Submit
+              SUBMIT
             </Button>
           </Box>
 

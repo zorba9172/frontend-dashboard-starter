@@ -33,7 +33,7 @@ const Error403Page: React.FC = () => {
           Forbidden Error
         </Typography>
         <Typography variant="body1" sx={{ color: 'text.secondary', mb: 4 }}>
-          You do not have permission to view this resource.
+          You do not have permission to view this resource
         </Typography>
         <Button
           variant="contained"

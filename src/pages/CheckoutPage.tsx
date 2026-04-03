@@ -15,36 +15,22 @@ import {
   Checkbox,
   InputAdornment,
   Divider,
+  Badge,
 } from '@mui/material';
-import { useTheme, alpha } from '@mui/material/styles';
+import { useTheme } from '@mui/material/styles';
 import { palette } from '../theme';
-
-const cartItems = [
-  { name: 'Bluetooth Speaker', price: 49.0 },
-  { name: 'Wireless Headphones', price: 79.0 },
-  { name: 'USB Hub', price: 25.0 },
-];
 
 const CheckoutPage: React.FC = () => {
   const theme = useTheme();
-  const isDark = theme.palette.mode === 'dark';
   const [paymentMethod, setPaymentMethod] = useState('credit');
   const [country, setCountry] = useState('');
   const [state, setState] = useState('');
 
-  const subtotal = cartItems.reduce((sum, item) => sum + item.price, 0);
-  const shipping = 5.0;
-  const total = subtotal + shipping;
-
   return (
     <Box sx={{ py: 2 }}>
-      <Typography variant="h4" fontWeight={700} sx={{ mb: 3 }}>
-        Checkout
-      </Typography>
-
       <Grid container spacing={3}>
-        {/* Billing Address Form */}
-        <Grid size={{ xs: 12, xl: 8 }}>
+        {/* Left: Billing Address Form */}
+        <Grid size={{ xs: 12, md: 8 }}>
           <Card>
             <CardContent>
               <Typography variant="h6" fontWeight={700} sx={{ mb: 3 }}>
@@ -53,10 +39,10 @@ const CheckoutPage: React.FC = () => {
 
               <Grid container spacing={2}>
                 <Grid size={{ xs: 12, sm: 6 }}>
-                  <TextField fullWidth label="First Name" placeholder="John" />
+                  <TextField fullWidth label="First name" placeholder="First name" />
                 </Grid>
                 <Grid size={{ xs: 12, sm: 6 }}>
-                  <TextField fullWidth label="Last Name" placeholder="Doe" />
+                  <TextField fullWidth label="Last name" placeholder="Last name" />
                 </Grid>
                 <Grid size={12}>
                   <TextField
@@ -71,13 +57,19 @@ const CheckoutPage: React.FC = () => {
                   />
                 </Grid>
                 <Grid size={12}>
-                  <TextField fullWidth label="Email" type="email" placeholder="you@example.com" />
+                  <TextField
+                    fullWidth
+                    label="Email"
+                    type="email"
+                    placeholder="you@example.com"
+                    helperText="Your email address is optional"
+                  />
                 </Grid>
                 <Grid size={12}>
                   <TextField fullWidth label="Address" placeholder="1234 Main St" />
                 </Grid>
                 <Grid size={12}>
-                  <TextField fullWidth label="Address 2" placeholder="Apartment or suite" />
+                  <TextField fullWidth label="Address 2" placeholder="Apartment or suite (optional)" />
                 </Grid>
                 <Grid size={{ xs: 12, sm: 4 }}>
                   <Select
@@ -110,50 +102,69 @@ const CheckoutPage: React.FC = () => {
                   </Select>
                 </Grid>
                 <Grid size={{ xs: 12, sm: 4 }}>
-                  <TextField fullWidth label="Zip Code" placeholder="12345" />
+                  <TextField fullWidth label="Zip" placeholder="Zip" />
                 </Grid>
               </Grid>
 
               <Divider sx={{ my: 3 }} />
 
               <FormControlLabel
-                control={<Checkbox sx={{ color: palette.primary.main, '&.Mui-checked': { color: palette.primary.main } }} />}
-                label="Ship to a different address"
+                control={
+                  <Checkbox
+                    defaultChecked
+                    sx={{ color: palette.primary.main, '&.Mui-checked': { color: palette.primary.main } }}
+                  />
+                }
+                label="Shipping address is the same as my billing address"
               />
               <br />
               <FormControlLabel
-                control={<Checkbox sx={{ color: palette.primary.main, '&.Mui-checked': { color: palette.primary.main } }} />}
+                control={
+                  <Checkbox
+                    sx={{ color: palette.primary.main, '&.Mui-checked': { color: palette.primary.main } }}
+                  />
+                }
                 label="Save this information for next time"
               />
 
               <Divider sx={{ my: 3 }} />
 
               <Typography variant="h6" fontWeight={700} sx={{ mb: 2 }}>
-                Payment Method
+                Payment
               </Typography>
 
               <RadioGroup value={paymentMethod} onChange={(e) => setPaymentMethod(e.target.value)}>
-                <FormControlLabel value="credit" control={<Radio sx={{ color: palette.primary.main, '&.Mui-checked': { color: palette.primary.main } }} />} label="Credit Card" />
-                <FormControlLabel value="debit" control={<Radio sx={{ color: palette.primary.main, '&.Mui-checked': { color: palette.primary.main } }} />} label="Debit Card" />
-                <FormControlLabel value="paypal" control={<Radio sx={{ color: palette.primary.main, '&.Mui-checked': { color: palette.primary.main } }} />} label="PayPal" />
+                <FormControlLabel
+                  value="credit"
+                  control={<Radio sx={{ color: palette.primary.main, '&.Mui-checked': { color: palette.primary.main } }} />}
+                  label="Credit card"
+                />
+                <FormControlLabel
+                  value="debit"
+                  control={<Radio sx={{ color: palette.primary.main, '&.Mui-checked': { color: palette.primary.main } }} />}
+                  label="Debit card"
+                />
+                <FormControlLabel
+                  value="paypal"
+                  control={<Radio sx={{ color: palette.primary.main, '&.Mui-checked': { color: palette.primary.main } }} />}
+                  label="PayPal"
+                />
               </RadioGroup>
 
-              {(paymentMethod === 'credit' || paymentMethod === 'debit') && (
-                <Grid container spacing={2} sx={{ mt: 2 }}>
-                  <Grid size={{ xs: 12, sm: 6 }}>
-                    <TextField fullWidth label="Name on Card" placeholder="Full name as displayed on card" />
-                  </Grid>
-                  <Grid size={{ xs: 12, sm: 6 }}>
-                    <TextField fullWidth label="Card Number" placeholder="0000 0000 0000 0000" />
-                  </Grid>
-                  <Grid size={{ xs: 12, sm: 6 }}>
-                    <TextField fullWidth label="Expiration" placeholder="MM/YY" />
-                  </Grid>
-                  <Grid size={{ xs: 12, sm: 6 }}>
-                    <TextField fullWidth label="CVV" placeholder="123" />
-                  </Grid>
+              <Grid container spacing={2} sx={{ mt: 2 }}>
+                <Grid size={{ xs: 12, sm: 6 }}>
+                  <TextField fullWidth label="Name on card" placeholder="Full name as displayed on card" />
                 </Grid>
-              )}
+                <Grid size={{ xs: 12, sm: 6 }}>
+                  <TextField fullWidth label="Credit card number" placeholder="0000 0000 0000 0000" />
+                </Grid>
+                <Grid size={{ xs: 12, sm: 6 }}>
+                  <TextField fullWidth label="Expiration date" placeholder="MM/YY" />
+                </Grid>
+                <Grid size={{ xs: 12, sm: 6 }}>
+                  <TextField fullWidth label="CVV" placeholder="123" />
+                </Grid>
+              </Grid>
 
               <Button
                 variant="contained"
@@ -168,57 +179,60 @@ const CheckoutPage: React.FC = () => {
           </Card>
         </Grid>
 
-        {/* Cart Summary Sidebar */}
-        <Grid size={{ xs: 12, xl: 4 }}>
+        {/* Right: Order Summary Sidebar */}
+        <Grid size={{ xs: 12, md: 4 }}>
           <Card>
             <CardContent>
-              <Typography variant="h6" fontWeight={700} sx={{ mb: 2 }}>
-                Your Cart
-              </Typography>
+              <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 2 }}>
+                <Typography variant="h6" fontWeight={700}>
+                  Your Cart
+                </Typography>
+                <Badge badgeContent={3} color="primary" />
+              </Box>
 
-              {cartItems.map((item, index) => (
-                <Box
-                  key={index}
-                  sx={{
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                    py: 1.5,
-                    borderBottom: index < cartItems.length - 1 ? `1px solid ${theme.palette.divider}` : 'none',
-                  }}
-                >
-                  <Typography variant="body1">{item.name}</Typography>
-                  <Typography variant="body1" fontWeight={600}>
-                    ${item.price.toFixed(2)}
-                  </Typography>
+              {/* Cart Items */}
+              <Box sx={{ display: 'flex', justifyContent: 'space-between', py: 1.5, borderBottom: `1px solid ${theme.palette.divider}` }}>
+                <Box>
+                  <Typography variant="body1">Product name</Typography>
+                  <Typography variant="body2" color="text.secondary">Brief description</Typography>
                 </Box>
-              ))}
-
-              <Box sx={{ mt: 2, display: 'flex', gap: 1 }}>
-                <TextField fullWidth placeholder="Promo code" size="small" />
-                <Button variant="outlined" color="primary" sx={{ whiteSpace: 'nowrap' }}>
-                  Apply
-                </Button>
+                <Typography variant="body2" color="text.secondary">$12</Typography>
+              </Box>
+              <Box sx={{ display: 'flex', justifyContent: 'space-between', py: 1.5, borderBottom: `1px solid ${theme.palette.divider}` }}>
+                <Box>
+                  <Typography variant="body1">Second product</Typography>
+                  <Typography variant="body2" color="text.secondary">Brief description</Typography>
+                </Box>
+                <Typography variant="body2" color="text.secondary">$8</Typography>
+              </Box>
+              <Box sx={{ display: 'flex', justifyContent: 'space-between', py: 1.5, borderBottom: `1px solid ${theme.palette.divider}` }}>
+                <Box>
+                  <Typography variant="body1">Third item</Typography>
+                  <Typography variant="body2" color="text.secondary">Brief description</Typography>
+                </Box>
+                <Typography variant="body2" color="text.secondary">$5</Typography>
+              </Box>
+              <Box sx={{ display: 'flex', justifyContent: 'space-between', py: 1.5, borderBottom: `1px solid ${theme.palette.divider}` }}>
+                <Typography variant="body1" sx={{ color: theme.palette.success.main }}>
+                  Promo code
+                </Typography>
+                <Typography variant="body2" sx={{ color: theme.palette.success.main }}>
+                  -$5
+                </Typography>
               </Box>
 
               <Divider sx={{ my: 2 }} />
 
-              <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 1 }}>
-                <Typography variant="body2" color="text.secondary">Subtotal</Typography>
-                <Typography variant="body2" fontWeight={600}>${subtotal.toFixed(2)}</Typography>
-              </Box>
-              <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 1 }}>
-                <Typography variant="body2" color="text.secondary">Shipping</Typography>
-                <Typography variant="body2" fontWeight={600}>${shipping.toFixed(2)}</Typography>
+              <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 2 }}>
+                <Typography variant="h6" fontWeight={700}>Total (USD)</Typography>
+                <Typography variant="h6" fontWeight={700}>$20</Typography>
               </Box>
 
-              <Divider sx={{ my: 1 }} />
-
-              <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-                <Typography variant="h6" fontWeight={700}>Total</Typography>
-                <Typography variant="h6" fontWeight={700} sx={{ color: palette.primary.main }}>
-                  ${total.toFixed(2)}
-                </Typography>
+              <Box sx={{ display: 'flex', gap: 1 }}>
+                <TextField fullWidth placeholder="Promo code" size="small" />
+                <Button variant="outlined" color="primary" sx={{ whiteSpace: 'nowrap' }}>
+                  Redeem
+                </Button>
               </Box>
             </CardContent>
           </Card>

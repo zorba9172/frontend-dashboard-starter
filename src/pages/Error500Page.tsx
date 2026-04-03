@@ -33,7 +33,7 @@ const Error500Page: React.FC = () => {
           Internal Server Error
         </Typography>
         <Typography variant="body1" sx={{ color: 'text.secondary', mb: 4 }}>
-          Something went wrong on our end.
+          Something went wrong on our end
         </Typography>
         <Button
           variant="contained"

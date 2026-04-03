@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useReducer } from 'react';
 import {
   Box,
   Card,
@@ -12,18 +12,36 @@ import {
   Chip,
   Divider,
   IconButton,
+  TextField,
+  Menu,
+  MenuItem,
+  Checkbox,
+  FormControlLabel,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
 } from '@mui/material';
 import { useTheme, alpha } from '@mui/material/styles';
-import LocationOnIcon from '@mui/icons-material/LocationOn';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
-import ShareIcon from '@mui/icons-material/Share';
+import ReplyIcon from '@mui/icons-material/Reply';
+import LinkIcon from '@mui/icons-material/Link';
+import CameraAltIcon from '@mui/icons-material/CameraAlt';
+import SendIcon from '@mui/icons-material/Send';
+import { palette, gradients } from '../theme';
 
-import userAvatar from '../assets/images/user.jpg';
-import pic1 from '../assets/images/profile/small/pic1.jpg';
-import pic2 from '../assets/images/profile/small/pic2.jpg';
-import pic3 from '../assets/images/profile/small/pic3.jpg';
+import profile from '../assets/images/profile/profile.png';
+import profilePic1 from '../assets/images/profile/small/pic1.jpg';
+import profile1 from '../assets/images/profile/1.jpg';
+import profile2 from '../assets/images/profile/2.jpg';
+import profile3 from '../assets/images/profile/3.jpg';
+import profile4 from '../assets/images/profile/4.jpg';
+import profile5 from '../assets/images/profile/5.jpg';
+import profile6 from '../assets/images/profile/6.jpg';
 
+// ── Types ──
 interface TabPanelProps {
   children?: React.ReactNode;
   index: number;
@@ -34,66 +52,101 @@ function TabPanel({ children, value, index }: TabPanelProps) {
   return value === index ? <Box sx={{ pt: 3 }}>{children}</Box> : null;
 }
 
+type ModalAction =
+  | { type: 'OPEN_MENU'; anchor: HTMLElement }
+  | { type: 'CLOSE_MENU' }
+  | { type: 'OPEN_MODAL'; modal: string }
+  | { type: 'CLOSE_MODAL' };
+
+interface ModalState {
+  menuAnchor: HTMLElement | null;
+  activeModal: string | null;
+}
+
+function modalReducer(state: ModalState, action: ModalAction): ModalState {
+  switch (action.type) {
+    case 'OPEN_MENU': return { ...state, menuAnchor: action.anchor };
+    case 'CLOSE_MENU': return { ...state, menuAnchor: null };
+    case 'OPEN_MODAL': return { menuAnchor: null, activeModal: action.modal };
+    case 'CLOSE_MODAL': return { ...state, activeModal: null };
+    default: return state;
+  }
+}
+
 const posts = [
-  { id: 1, image: pic1, text: 'Exploring new design trends for 2026 and beyond. The future of UI is bright!', likes: 124, comments: 23 },
-  { id: 2, image: pic2, text: 'Just wrapped up an amazing project with the team. Collaboration at its finest.', likes: 89, comments: 12 },
-  { id: 3, image: pic3, text: 'Nature always inspires the best color palettes. Taking notes from the outdoors.', likes: 256, comments: 45 },
+  { id: 1, image: profile1, text: 'Have you done with the newest project? You look great!', likes: 124, comments: 23 },
+  { id: 2, image: profile2, text: 'The sunset from the rooftop was absolutely breathtaking last evening. Nature never disappoints.', likes: 256, comments: 45 },
 ];
 
-const skills = ['UI Design', 'Figma', 'Photoshop', 'React', 'CSS', 'Typography', 'Wireframing', 'Prototyping'];
+const skills = ['Admin', 'Dashboard', 'Photoshop', 'Bootstrap', 'Responsive', 'Crypto'];
+
+const languages = [
+  { lang: 'English', flag: '\u{1F1EC}\u{1F1E7}' },
+  { lang: 'French', flag: '\u{1F1EB}\u{1F1F7}' },
+  { lang: 'Spanish', flag: '\u{1F1EA}\u{1F1F8}' },
+];
 
 const personalInfo = [
   { label: 'Name', value: 'Mitchell C. Adams' },
   { label: 'Email', value: 'mitchell.adams@mail.com' },
-  { label: 'Availability', value: 'Full Time' },
+  { label: 'Availability', value: 'Full-time' },
   { label: 'Age', value: '27' },
-  { label: 'Location', value: 'New York, USA' },
-  { label: 'Year of Experience', value: '5 Years' },
+  { label: 'Location', value: 'New York' },
+  { label: 'Year of Experience', value: '07' },
 ];
 
 export default function AppProfilePage() {
   const theme = useTheme();
   const [tab, setTab] = useState(0);
+  const [state, dispatch] = useReducer(modalReducer, { menuAnchor: null, activeModal: null });
 
   return (
     <Box>
-      {/* Profile Header */}
+      {/* ── Profile Header Card ── */}
       <Card sx={{ mb: 3, overflow: 'visible' }}>
+        {/* Cover gradient */}
         <Box
           sx={{
             height: 200,
-            background: 'linear-gradient(212.43deg, #886CC0 19.43%, #AA6CC0 87.63%)',
+            background: gradients.tryal,
             borderRadius: `${theme.shape.borderRadius}px ${theme.shape.borderRadius}px 0 0`,
             position: 'relative',
           }}
         />
         <CardContent sx={{ pt: 0, position: 'relative' }}>
-          <Box sx={{ display: 'flex', flexWrap: 'wrap', alignItems: 'flex-end', mt: -6, mb: 2, gap: 2 }}>
+          <Box sx={{ display: 'flex', flexWrap: 'wrap', alignItems: 'flex-end', mt: -5, mb: 2, gap: 2 }}>
+            {/* Avatar */}
             <Avatar
-              src={userAvatar}
+              src={profile}
               sx={{
-                width: 120,
-                height: 120,
+                width: 80,
+                height: 80,
                 border: `4px solid ${theme.palette.background.paper}`,
                 boxShadow: theme.shadows[3],
               }}
             />
-            <Box sx={{ flex: 1, minWidth: 200, mb: 1 }}>
-              <Typography variant="h4">Mitchell C. Adams</Typography>
+            <Box sx={{ flex: 1, minWidth: 200, mb: 0.5 }}>
+              <Typography variant="h5" sx={{ fontWeight: 700 }}>Mitchell C. Adams</Typography>
               <Typography variant="body2" color="text.secondary">UX / UI Designer</Typography>
-              <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5, mt: 0.5 }}>
-                <LocationOnIcon sx={{ fontSize: 16, color: 'text.secondary' }} />
-                <Typography variant="body2" color="text.secondary">New York, USA</Typography>
-              </Box>
             </Box>
-            <Box sx={{ display: 'flex', gap: 1, mb: 1 }}>
-              <Button variant="contained" color="primary">Follow</Button>
-              <Button variant="outlined" color="primary">Send Message</Button>
+            {/* Dropdown */}
+            <Box sx={{ display: 'flex', gap: 1, alignItems: 'center', mb: 0.5 }}>
+              <Button variant="contained">Follow</Button>
+              <Button variant="outlined" color="primary" startIcon={<SendIcon />}>Send Message</Button>
+              <IconButton onClick={(e) => dispatch({ type: 'OPEN_MENU', anchor: e.currentTarget })}>
+                <MoreVertIcon />
+              </IconButton>
+              <Menu anchorEl={state.menuAnchor} open={Boolean(state.menuAnchor)} onClose={() => dispatch({ type: 'CLOSE_MENU' })}>
+                <MenuItem onClick={() => dispatch({ type: 'OPEN_MODAL', modal: 'viewProfile' })}>View profile</MenuItem>
+                <MenuItem onClick={() => dispatch({ type: 'OPEN_MODAL', modal: 'closeFriends' })}>Add to close friends</MenuItem>
+                <MenuItem onClick={() => dispatch({ type: 'OPEN_MODAL', modal: 'addGroup' })}>Add to group</MenuItem>
+                <MenuItem onClick={() => dispatch({ type: 'OPEN_MODAL', modal: 'block' })}>Block</MenuItem>
+              </Menu>
             </Box>
           </Box>
 
-          {/* Stats */}
-          <Box sx={{ display: 'flex', gap: 4, mt: 2, mb: 1 }}>
+          {/* Stats row */}
+          <Box sx={{ display: 'flex', gap: 5, mt: 2, mb: 1 }}>
             {[
               { label: 'Followers', value: '873k' },
               { label: 'Place Stay', value: '32' },
@@ -108,41 +161,52 @@ export default function AppProfilePage() {
         </CardContent>
       </Card>
 
-      {/* Tabs */}
+      {/* ── Tabs Card ── */}
       <Card>
         <Box sx={{ px: 3, pt: 1 }}>
           <Tabs value={tab} onChange={(_, v) => setTab(v)}>
             <Tab label="Posts" />
             <Tab label="About Me" />
-            <Tab label="Settings" />
+            <Tab label="Setting" />
           </Tabs>
         </Box>
         <CardContent>
-          {/* Posts Tab */}
+          {/* ── Posts Tab ── */}
           <TabPanel value={tab} index={0}>
+            {/* Post creation area */}
+            <Card variant="outlined" sx={{ mb: 3 }}>
+              <CardContent>
+                <Box sx={{ display: 'flex', gap: 2, mb: 2 }}>
+                  <Avatar src={profile} sx={{ width: 42, height: 42 }} />
+                  <TextField fullWidth multiline rows={2} placeholder="What's on your mind?" />
+                </Box>
+                <Box sx={{ display: 'flex', gap: 1 }}>
+                  <Button size="small" startIcon={<LinkIcon />} sx={{ color: theme.palette.text.secondary }}>Link</Button>
+                  <Button size="small" startIcon={<CameraAltIcon />} sx={{ color: theme.palette.text.secondary }}>Camera</Button>
+                  <Button variant="contained" size="small" sx={{ ml: 'auto' }}>Post</Button>
+                </Box>
+              </CardContent>
+            </Card>
+
+            {/* Post cards */}
             <Grid container spacing={3}>
               {posts.map((post) => (
-                <Grid size={{ xs: 12, md: 4 }} key={post.id}>
+                <Grid size={{ xs: 12, md: 6 }} key={post.id}>
                   <Card variant="outlined">
-                    <Box
-                      component="img"
-                      src={post.image}
-                      alt="post"
-                      sx={{ width: '100%', height: 180, objectFit: 'cover' }}
-                    />
+                    <Box component="img" src={post.image} alt="post" sx={{ width: '100%', height: 200, objectFit: 'cover' }} />
                     <CardContent>
                       <Typography variant="body2" sx={{ mb: 2 }}>{post.text}</Typography>
                       <Divider sx={{ mb: 1.5 }} />
                       <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
                         <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
-                          <IconButton size="small" color="error"><FavoriteIcon fontSize="small" /></IconButton>
+                          <IconButton size="small" sx={{ color: theme.palette.error.main }}><FavoriteIcon fontSize="small" /></IconButton>
                           <Typography variant="body2">{post.likes}</Typography>
                         </Box>
                         <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
                           <IconButton size="small"><ChatBubbleOutlineIcon fontSize="small" /></IconButton>
                           <Typography variant="body2">{post.comments}</Typography>
                         </Box>
-                        <IconButton size="small" sx={{ ml: 'auto' }}><ShareIcon fontSize="small" /></IconButton>
+                        <Button size="small" startIcon={<ReplyIcon />} sx={{ ml: 'auto', color: theme.palette.text.secondary }}>Reply</Button>
                       </Box>
                     </CardContent>
                   </Card>
@@ -151,14 +215,14 @@ export default function AppProfilePage() {
             </Grid>
           </TabPanel>
 
-          {/* About Me Tab */}
+          {/* ── About Me Tab ── */}
           <TabPanel value={tab} index={1}>
             <Typography variant="h6" sx={{ mb: 1 }}>About Me</Typography>
-            <Typography variant="body1" color="text.secondary" sx={{ mb: 3 }}>
-              I am a passionate UX/UI Designer with over 5 years of experience creating intuitive and visually
+            <Typography variant="body1" color="text.secondary" sx={{ mb: 3, lineHeight: 1.8 }}>
+              I am a passionate UX/UI Designer with over 7 years of experience creating intuitive and visually
               stunning digital products. I specialize in user-centered design, transforming complex problems into
-              simple, elegant solutions. When I am not designing, you will find me exploring nature, sketching, or
-              reading about the latest design trends.
+              simple, elegant solutions. When I am not designing, you will find me exploring nature, sketching,
+              or reading about the latest technology trends.
             </Typography>
 
             <Typography variant="h6" sx={{ mb: 1.5 }}>Skills</Typography>
@@ -167,8 +231,18 @@ export default function AppProfilePage() {
                 <Chip
                   key={skill}
                   label={skill}
-                  sx={{ bgcolor: alpha(theme.palette.primary.main, 0.1), color: 'primary.main' }}
+                  sx={{ bgcolor: alpha(theme.palette.primary.main, 0.1), color: theme.palette.primary.main }}
                 />
+              ))}
+            </Box>
+
+            <Typography variant="h6" sx={{ mb: 1.5 }}>Languages</Typography>
+            <Box sx={{ display: 'flex', gap: 3, mb: 3 }}>
+              {languages.map((l) => (
+                <Box key={l.lang} sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                  <Typography sx={{ fontSize: '1.25rem' }}>{l.flag}</Typography>
+                  <Typography variant="body2">{l.lang}</Typography>
+                </Box>
               ))}
             </Box>
 
@@ -185,14 +259,60 @@ export default function AppProfilePage() {
             </Grid>
           </TabPanel>
 
-          {/* Settings Tab */}
+          {/* ── Setting Tab ── */}
           <TabPanel value={tab} index={2}>
-            <Typography variant="body1" color="text.secondary">
-              Profile settings will be available here. Use the Edit Profile page to update your information.
-            </Typography>
+            <Typography variant="h6" sx={{ mb: 2 }}>Account Settings</Typography>
+            <Grid container spacing={2.5}>
+              <Grid size={12}>
+                <TextField fullWidth label="Email" defaultValue="mitchell.adams@mail.com" />
+              </Grid>
+              <Grid size={12}>
+                <TextField fullWidth label="Password" type="password" defaultValue="password123" />
+              </Grid>
+              <Grid size={12}>
+                <Typography variant="subtitle2" sx={{ mb: 1.5, mt: 1 }}>General Information</Typography>
+              </Grid>
+              <Grid size={12}>
+                <TextField fullWidth label="Address" defaultValue="123 Main Street" />
+              </Grid>
+              <Grid size={{ xs: 12, sm: 4 }}>
+                <TextField fullWidth label="City" defaultValue="New York" />
+              </Grid>
+              <Grid size={{ xs: 12, sm: 4 }}>
+                <TextField fullWidth label="State" defaultValue="NY" />
+              </Grid>
+              <Grid size={{ xs: 12, sm: 4 }}>
+                <TextField fullWidth label="Zip" defaultValue="10001" />
+              </Grid>
+              <Grid size={12}>
+                <FormControlLabel control={<Checkbox />} label="Check me out" />
+              </Grid>
+              <Grid size={12}>
+                <Button variant="contained">Update</Button>
+              </Grid>
+            </Grid>
           </TabPanel>
         </CardContent>
       </Card>
+
+      {/* ── Modals ── */}
+      {['viewProfile', 'closeFriends', 'addGroup', 'block'].map((key) => (
+        <Dialog key={key} open={state.activeModal === key} onClose={() => dispatch({ type: 'CLOSE_MODAL' })} maxWidth="xs" fullWidth>
+          <DialogTitle sx={{ textTransform: 'capitalize' }}>{key.replace(/([A-Z])/g, ' $1').trim()}</DialogTitle>
+          <DialogContent>
+            <Typography variant="body2" color="text.secondary">
+              {key === 'viewProfile' && 'Viewing the full profile of Mitchell C. Adams.'}
+              {key === 'closeFriends' && 'Mitchell C. Adams has been added to your close friends list.'}
+              {key === 'addGroup' && 'Select a group to add Mitchell C. Adams to.'}
+              {key === 'block' && 'Are you sure you want to block Mitchell C. Adams?'}
+            </Typography>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={() => dispatch({ type: 'CLOSE_MODAL' })}>Close</Button>
+            {key === 'block' && <Button color="error" variant="contained" onClick={() => dispatch({ type: 'CLOSE_MODAL' })}>Block</Button>}
+          </DialogActions>
+        </Dialog>
+      ))}
     </Box>
   );
 }

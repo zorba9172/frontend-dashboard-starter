@@ -7,7 +7,6 @@ import {
   Button,
   Typography,
   Avatar,
-  Link,
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { gradients, palette } from '../theme';
@@ -29,6 +28,29 @@ const LockScreenPage: React.FC = () => {
     >
       <Card sx={{ maxWidth: 480, width: '100%', borderRadius: '1rem', boxShadow: '0 8px 40px rgba(0,0,0,0.12)' }}>
         <CardContent sx={{ p: 4, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+          {/* Logo */}
+          <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', mb: 4 }}>
+            <Box
+              sx={{
+                width: 44,
+                height: 44,
+                borderRadius: '10px',
+                background: gradients.tryal,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                mr: 1,
+              }}
+            >
+              <Typography variant="h5" sx={{ color: palette.primary.contrastText, fontWeight: 700 }}>
+                F
+              </Typography>
+            </Box>
+            <Typography variant="h4" sx={{ fontWeight: 700, color: palette.primary.main }}>
+              Fillow
+            </Typography>
+          </Box>
+
           <Avatar
             src={userImg}
             sx={{ width: 100, height: 100, mb: 2, border: `3px solid ${palette.primary.main}` }}
@@ -66,18 +88,6 @@ const LockScreenPage: React.FC = () => {
               Unlock
             </Button>
           </Box>
-
-          <Typography variant="body2" sx={{ textAlign: 'center', mt: 3 }}>
-            Not you?{' '}
-            <Link
-              component="button"
-              variant="body2"
-              onClick={() => navigate('/login')}
-              sx={{ color: palette.primary.main, fontWeight: 600, textDecoration: 'none', cursor: 'pointer' }}
-            >
-              Sign in with different account
-            </Link>
-          </Typography>
         </CardContent>
       </Card>
     </Box>

@@ -3,85 +3,91 @@ import {
   Box,
   Card,
   CardContent,
-  CardActions,
   Grid,
   Typography,
-  Button,
   Rating,
-  IconButton,
+  Link as MuiLink,
 } from '@mui/material';
-import { useTheme, alpha } from '@mui/material/styles';
-import ViewModuleIcon from '@mui/icons-material/ViewModule';
-import ViewListIcon from '@mui/icons-material/ViewList';
-import { palette } from '../theme';
+import { useTheme } from '@mui/material/styles';
+import { palette, semantic } from '../theme';
+
+import product1 from '../assets/images/product/1.jpg';
+import product2 from '../assets/images/product/2.jpg';
+import product3 from '../assets/images/product/3.jpg';
+import product4 from '../assets/images/product/4.jpg';
+import product5 from '../assets/images/product/5.jpg';
+import product6 from '../assets/images/product/6.jpg';
+import product7 from '../assets/images/product/7.jpg';
+
+const productImages = [product1, product2, product3, product4, product5, product6, product7];
 
 interface Product {
   id: number;
   name: string;
   price: string;
   rating: number;
-  gradient: string;
+  image: string;
 }
 
-const products: Product[] = [
-  { id: 1, name: 'Bluetooth Speaker', price: '$49.00', rating: 4, gradient: 'linear-gradient(135deg, #886CC0 0%, #FFA7D7 100%)' },
-  { id: 2, name: 'Wireless Headphones', price: '$49.00', rating: 4, gradient: 'linear-gradient(135deg, #6c4bae 0%, #D653C1 100%)' },
-  { id: 3, name: 'Smart Watch', price: '$49.00', rating: 4, gradient: 'linear-gradient(135deg, #09BD3C 0%, #FFCF6D 100%)' },
-  { id: 4, name: 'Laptop Stand', price: '$49.00', rating: 4, gradient: 'linear-gradient(135deg, #FC2E53 0%, #FFA7D7 100%)' },
-  { id: 5, name: 'USB Hub', price: '$49.00', rating: 4, gradient: 'linear-gradient(135deg, #886CC0 0%, #17a2b8 100%)' },
-  { id: 6, name: 'Mechanical Keyboard', price: '$49.00', rating: 4, gradient: 'linear-gradient(135deg, #D653C1 0%, #FFCF6D 100%)' },
-  { id: 7, name: 'Monitor Light', price: '$49.00', rating: 4, gradient: 'linear-gradient(135deg, #4d06a5 0%, #886CC0 100%)' },
-  { id: 8, name: 'Webcam HD', price: '$49.00', rating: 4, gradient: 'linear-gradient(135deg, #09BD3C 0%, #886CC0 100%)' },
+const allProducts: Product[] = [
+  { id: 1, name: 'BONORUM ET MALORUM', price: '$761.00', rating: 4, image: productImages[0] },
+  { id: 2, name: 'STRIPED DRESS', price: '$159.00', rating: 4.5, image: productImages[1] },
+  { id: 3, name: 'BBOW POLKA-DOT', price: '$357.00', rating: 3.5, image: productImages[2] },
+  { id: 4, name: 'Z PRODUCT 360', price: '$indudu.00', rating: 4, image: productImages[3] },
+  { id: 5, name: 'CHAIR GREY', price: '$400.00', rating: 5, image: productImages[4] },
+  { id: 6, name: 'FOX SAKE WITHE', price: '$451.00', rating: 4.5, image: productImages[5] },
+  { id: 7, name: 'BACK BAG', price: '$357.00', rating: 4, image: productImages[6] },
+  { id: 8, name: 'FLARE DRESS', price: '$640.00', rating: 4.5, image: productImages[0] },
 ];
 
 const ProductGridPage: React.FC = () => {
   const theme = useTheme();
-  const isDark = theme.palette.mode === 'dark';
 
   return (
     <Box sx={{ py: 2 }}>
-      {/* Top bar */}
-      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3 }}>
-        <Typography variant="h4" fontWeight={700}>
-          Products
-        </Typography>
-        <Box>
-          <IconButton sx={{ color: palette.primary.main }}>
-            <ViewModuleIcon />
-          </IconButton>
-          <IconButton sx={{ color: theme.palette.text.secondary }}>
-            <ViewListIcon />
-          </IconButton>
-        </Box>
-      </Box>
-
-      {/* Product Grid */}
       <Grid container spacing={3}>
-        {products.map((product) => (
-          <Grid key={product.id} size={{ xs: 12, sm: 6, md: 6, lg: 4, xl: 3 }}>
+        {allProducts.map((product) => (
+          <Grid key={product.id} size={{ xs: 12, sm: 6, md: 6, lg: 6, xl: 3 }}>
             <Card>
-              {/* Gradient placeholder image */}
               <Box
+                component="img"
+                src={product.image}
+                alt={product.name}
                 sx={{
+                  width: '100%',
                   height: 200,
-                  background: product.gradient,
-                  borderRadius: '10px 10px 0 0',
+                  objectFit: 'cover',
+                  display: 'block',
                 }}
               />
               <CardContent>
-                <Typography variant="subtitle1" fontWeight={600} gutterBottom>
+                <MuiLink
+                  href="#"
+                  underline="none"
+                  sx={{
+                    fontWeight: 600,
+                    color: theme.palette.text.primary,
+                    display: 'block',
+                    mb: 0.5,
+                    '&:hover': { color: palette.primary.main },
+                  }}
+                >
                   {product.name}
-                </Typography>
-                <Rating value={product.rating} readOnly size="small" />
-                <Typography variant="h6" fontWeight={700} sx={{ mt: 1, color: palette.primary.main }}>
+                </MuiLink>
+                <Rating
+                  value={product.rating}
+                  readOnly
+                  size="small"
+                  precision={0.5}
+                  sx={{
+                    '& .MuiRating-iconFilled': { color: semantic.starColor },
+                    '& .MuiRating-iconHover': { color: semantic.starColor },
+                  }}
+                />
+                <Typography variant="body1" sx={{ fontWeight: 600, mt: 0.5 }}>
                   {product.price}
                 </Typography>
               </CardContent>
-              <CardActions sx={{ px: 2, pb: 2 }}>
-                <Button variant="outlined" color="primary" fullWidth>
-                  Add to Cart
-                </Button>
-              </CardActions>
             </Card>
           </Grid>
         ))}

@@ -14,15 +14,12 @@ import {
   TableBody,
   TableRow,
   TableCell,
-  Pagination,
   Collapse,
 } from '@mui/material';
 import { useTheme, alpha } from '@mui/material/styles';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-import CancelIcon from '@mui/icons-material/Cancel';
-import FilterListIcon from '@mui/icons-material/FilterList';
 import AddIcon from '@mui/icons-material/Add';
 import { palette } from '../theme';
 
@@ -34,46 +31,29 @@ interface EmailTemplate {
 }
 
 const templates: EmailTemplate[] = [
-  { id: 1, title: 'Welcome Email', active: true, modified: 'Mar 20, 2026' },
-  { id: 2, title: 'Password Reset', active: true, modified: 'Mar 18, 2026' },
-  { id: 3, title: 'Order Confirmation', active: true, modified: 'Mar 15, 2026' },
-  { id: 4, title: 'Newsletter', active: false, modified: 'Mar 10, 2026' },
-  { id: 5, title: 'Account Verification', active: true, modified: 'Mar 08, 2026' },
+  { id: 1, title: 'Store Admin Registration', active: true, modified: '20 May 2024' },
+  { id: 2, title: 'Create Store', active: true, modified: '25 May 2024' },
 ];
 
 const EmailTemplatePage: React.FC = () => {
   const theme = useTheme();
-  const isDark = theme.palette.mode === 'dark';
   const [filterOpen, setFilterOpen] = useState(false);
   const [status, setStatus] = useState('');
-  const [page, setPage] = useState(1);
 
   return (
     <Box sx={{ py: 2 }}>
-      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3, flexWrap: 'wrap', gap: 2 }}>
-        <Typography variant="h4" fontWeight={700}>
-          Email Templates
-        </Typography>
-        <Box sx={{ display: 'flex', gap: 1 }}>
-          <Button
-            variant="outlined"
-            color="primary"
-            startIcon={<FilterListIcon />}
-            onClick={() => setFilterOpen(!filterOpen)}
-          >
-            Filters
-          </Button>
-          <Button
-            variant="contained"
-            color="primary"
-            startIcon={<AddIcon />}
-          >
-            New Email Template
-          </Button>
-        </Box>
+      {/* Header with Add Button */}
+      <Box sx={{ display: 'flex', justifyContent: 'flex-end', mb: 3 }}>
+        <Button
+          variant="contained"
+          color="primary"
+          startIcon={<AddIcon />}
+        >
+          New Email Template
+        </Button>
       </Box>
 
-      {/* Filter Section */}
+      {/* Collapsible Filter Section */}
       <Collapse in={filterOpen}>
         <Card sx={{ mb: 3 }}>
           <CardContent>
@@ -87,10 +67,18 @@ const EmailTemplatePage: React.FC = () => {
                 sx={{ minWidth: 150 }}
               >
                 <MenuItem value="">All Status</MenuItem>
-                <MenuItem value="active">Active</MenuItem>
-                <MenuItem value="inactive">Inactive</MenuItem>
+                <MenuItem value="Published">Published</MenuItem>
+                <MenuItem value="Draft">Draft</MenuItem>
+                <MenuItem value="Trash">Trash</MenuItem>
+                <MenuItem value="Private">Private</MenuItem>
+                <MenuItem value="Pending">Pending</MenuItem>
               </Select>
-              <TextField label="Date" type="date" slotProps={{ inputLabel: { shrink: true } }} sx={{ minWidth: 160 }} />
+              <TextField
+                label="Date"
+                type="date"
+                slotProps={{ inputLabel: { shrink: true } }}
+                sx={{ minWidth: 160 }}
+              />
               <Button variant="contained" color="primary">Filter</Button>
               <Button variant="outlined" color="primary">Remove</Button>
             </Box>
@@ -119,11 +107,9 @@ const EmailTemplatePage: React.FC = () => {
                     <Typography variant="body2" fontWeight={500}>{template.title}</Typography>
                   </TableCell>
                   <TableCell align="center">
-                    {template.active ? (
-                      <CheckCircleIcon sx={{ color: palette.success.main }} />
-                    ) : (
-                      <CancelIcon sx={{ color: palette.danger.main }} />
-                    )}
+                    <IconButton size="small" sx={{ color: palette.success.main }}>
+                      <CheckCircleIcon fontSize="small" />
+                    </IconButton>
                   </TableCell>
                   <TableCell>
                     <Typography variant="body2" color="text.secondary">{template.modified}</Typography>
@@ -141,13 +127,10 @@ const EmailTemplatePage: React.FC = () => {
             </TableBody>
           </Table>
 
-          <Box sx={{ display: 'flex', justifyContent: 'center', py: 2 }}>
-            <Pagination
-              count={3}
-              page={page}
-              onChange={(_, value) => setPage(value)}
-              color="primary"
-            />
+          <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', px: 2, py: 2 }}>
+            <Typography variant="body2" color="text.secondary">
+              Showing 1-2 of 2
+            </Typography>
           </Box>
         </CardContent>
       </Card>

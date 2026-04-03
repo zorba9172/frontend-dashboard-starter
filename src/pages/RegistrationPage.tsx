@@ -109,7 +109,7 @@ const RegistrationPage: React.FC = () => {
                 },
               }}
             >
-              Sign Up
+              Sign me up
             </Button>
           </Box>
 

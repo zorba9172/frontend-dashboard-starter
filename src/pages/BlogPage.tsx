@@ -15,61 +15,41 @@ import {
   TableBody,
   TableRow,
   TableCell,
-  Pagination,
   Collapse,
 } from '@mui/material';
 import { useTheme, alpha } from '@mui/material/styles';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import FilterListIcon from '@mui/icons-material/FilterList';
 import { palette } from '../theme';
 
 interface BlogItem {
   id: number;
   title: string;
-  status: 'Published' | 'Draft' | 'Pending';
+  status: 'Published' | 'Draft' | 'Trash' | 'Private' | 'Pending';
   modified: string;
 }
 
 const blogItems: BlogItem[] = [
-  { id: 1, title: 'Getting Started with React', status: 'Published', modified: 'Mar 20, 2026' },
-  { id: 2, title: 'Advanced TypeScript Patterns', status: 'Published', modified: 'Mar 18, 2026' },
-  { id: 3, title: 'Building Scalable APIs', status: 'Draft', modified: 'Mar 15, 2026' },
-  { id: 4, title: 'CSS Grid vs Flexbox', status: 'Published', modified: 'Mar 12, 2026' },
-  { id: 5, title: 'State Management Best Practices', status: 'Pending', modified: 'Mar 10, 2026' },
-  { id: 6, title: 'Testing React Components', status: 'Draft', modified: 'Mar 08, 2026' },
+  { id: 1, title: 'Privacy Policy', status: 'Published', modified: '20 May 2024' },
+  { id: 2, title: 'Contact Us', status: 'Published', modified: '25 May 2024' },
 ];
 
 const statusColors: Record<string, { bg: string; color: string }> = {
   Published: { bg: alpha(palette.success.main, 0.15), color: palette.success.main },
   Draft: { bg: alpha(palette.warning.main, 0.15), color: palette.warning.dark },
-  Pending: { bg: alpha(palette.info.main, 0.15), color: palette.info.main },
+  Trash: { bg: alpha(palette.danger.main, 0.15), color: palette.danger.main },
+  Private: { bg: alpha(palette.info.main, 0.15), color: palette.info.main },
+  Pending: { bg: alpha(palette.warning.main, 0.15), color: palette.warning.dark },
 };
 
 const BlogPage: React.FC = () => {
   const theme = useTheme();
-  const isDark = theme.palette.mode === 'dark';
   const [filterOpen, setFilterOpen] = useState(false);
   const [status, setStatus] = useState('');
-  const [page, setPage] = useState(1);
 
   return (
     <Box sx={{ py: 2 }}>
-      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3, flexWrap: 'wrap', gap: 2 }}>
-        <Typography variant="h4" fontWeight={700}>
-          Blog Management
-        </Typography>
-        <Button
-          variant="outlined"
-          color="primary"
-          startIcon={<FilterListIcon />}
-          onClick={() => setFilterOpen(!filterOpen)}
-        >
-          Filters
-        </Button>
-      </Box>
-
-      {/* Filter Section */}
+      {/* Collapsible Filter Section */}
       <Collapse in={filterOpen}>
         <Card sx={{ mb: 3 }}>
           <CardContent>
@@ -85,9 +65,16 @@ const BlogPage: React.FC = () => {
                 <MenuItem value="">All Status</MenuItem>
                 <MenuItem value="Published">Published</MenuItem>
                 <MenuItem value="Draft">Draft</MenuItem>
+                <MenuItem value="Trash">Trash</MenuItem>
+                <MenuItem value="Private">Private</MenuItem>
                 <MenuItem value="Pending">Pending</MenuItem>
               </Select>
-              <TextField label="Date" type="date" slotProps={{ inputLabel: { shrink: true } }} sx={{ minWidth: 160 }} />
+              <TextField
+                label="Date"
+                type="date"
+                slotProps={{ inputLabel: { shrink: true } }}
+                sx={{ minWidth: 160 }}
+              />
               <Button variant="contained" color="primary">Filter</Button>
               <Button variant="outlined" color="primary">Remove</Button>
             </Box>
@@ -155,13 +142,10 @@ const BlogPage: React.FC = () => {
             </TableBody>
           </Table>
 
-          <Box sx={{ display: 'flex', justifyContent: 'center', py: 2 }}>
-            <Pagination
-              count={5}
-              page={page}
-              onChange={(_, value) => setPage(value)}
-              color="primary"
-            />
+          <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', px: 2, py: 2 }}>
+            <Typography variant="body2" color="text.secondary">
+              Showing 1-2 of 2
+            </Typography>
           </Box>
         </CardContent>
       </Card>

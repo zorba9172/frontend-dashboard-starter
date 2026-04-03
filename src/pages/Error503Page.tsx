@@ -33,7 +33,7 @@ const Error503Page: React.FC = () => {
           Service Unavailable
         </Typography>
         <Typography variant="body1" sx={{ color: 'text.secondary', mb: 4 }}>
-          We&apos;re currently under maintenance. Please try again later.
+          We&apos;re currently under maintenance
         </Typography>
         <Button
           variant="contained"

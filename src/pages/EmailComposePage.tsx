@@ -3,7 +3,6 @@ import {
   Box,
   Card,
   CardContent,
-  Grid,
   Typography,
   Button,
   TextField,
@@ -14,6 +13,8 @@ import {
   ListItemText,
   Badge,
   IconButton,
+  Menu,
+  MenuItem,
 } from '@mui/material';
 import { useTheme, alpha } from '@mui/material/styles';
 import InboxIcon from '@mui/icons-material/Inbox';
@@ -23,55 +24,77 @@ import DraftsIcon from '@mui/icons-material/Drafts';
 import DeleteIcon from '@mui/icons-material/Delete';
 import ArchiveIcon from '@mui/icons-material/Archive';
 import ReportIcon from '@mui/icons-material/Report';
+import FolderIcon from '@mui/icons-material/Folder';
+import LabelIcon from '@mui/icons-material/Label';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
 import AttachFileIcon from '@mui/icons-material/AttachFile';
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
-import { semantic } from '../theme';
+import { palette, semantic } from '../theme';
 
+// ── Shared sidebar data ──
 const sidebarItems = [
-  { label: 'Inbox', icon: <InboxIcon />, badge: 12 },
+  { label: 'Inbox', icon: <InboxIcon />, badge: 198 },
   { label: 'Sent', icon: <SendIcon />, badge: 0 },
-  { label: 'Important', icon: <StarBorderIcon />, badge: 0 },
+  { label: 'Important', icon: <StarBorderIcon />, badge: 47 },
   { label: 'Draft', icon: <DraftsIcon />, badge: 0 },
   { label: 'Trash', icon: <DeleteIcon />, badge: 0 },
 ];
 
 const categories = [
-  { label: 'Work', color: semantic.categoryWork },
-  { label: 'Private', color: semantic.categoryPrivate },
-  { label: 'Support', color: semantic.categorySupport },
-  { label: 'Social', color: semantic.categorySocial },
+  { label: 'Work', color: palette.primary.main },
+  { label: 'Private', color: palette.success.main },
+  { label: 'Support', color: palette.warning.main },
+  { label: 'Social', color: palette.secondary.main },
 ];
 
-function EmailSidebar({ active }: { active: string }) {
+// ── Reusable sidebar component ──
+export function EmailSidebar({ active }: { active: string }) {
   const theme = useTheme();
   return (
     <Box sx={{ width: 240, flexShrink: 0 }}>
-      <Button
-        variant="contained"
-        color="primary"
-        fullWidth
-        sx={{ mb: 3, borderRadius: 2 }}
-      >
+      <Button variant="contained" fullWidth sx={{ mb: 3, borderRadius: '1.75rem', fontWeight: 600 }}>
         Compose
       </Button>
       <List disablePadding>
         {sidebarItems.map((item) => (
-          <ListItemButton key={item.label} selected={item.label === active}>
-            <ListItemIcon sx={{ minWidth: 36 }}>{item.icon}</ListItemIcon>
-            <ListItemText primary={item.label} primaryTypographyProps={{ variant: 'body2' }} />
+          <ListItemButton key={item.label} selected={item.label === active} sx={{ borderRadius: '0.5rem', mb: 0.5 }}>
+            <ListItemIcon sx={{ minWidth: 36, color: item.label === active ? theme.palette.primary.main : theme.palette.text.secondary }}>
+              {item.icon}
+            </ListItemIcon>
+            <ListItemText
+              primary={item.label}
+              primaryTypographyProps={{
+                variant: 'body2',
+                fontWeight: item.label === active ? 600 : 400,
+              }}
+            />
             {item.badge > 0 && (
-              <Badge badgeContent={item.badge} color="primary" />
+              <Badge
+                badgeContent={item.badge}
+                sx={{
+                  '& .MuiBadge-badge': {
+                    bgcolor: theme.palette.primary.main,
+                    color: palette.primary.contrastText,
+                    fontSize: '0.7rem',
+                    fontWeight: 600,
+                  },
+                }}
+              />
             )}
           </ListItemButton>
         ))}
       </List>
       <Divider sx={{ my: 2 }} />
-      <Typography variant="caption" color="text.secondary" sx={{ px: 2, mb: 1, display: 'block', fontWeight: 600, textTransform: 'uppercase' }}>
+      <Typography
+        variant="caption"
+        color="text.secondary"
+        sx={{ px: 2, mb: 1, display: 'block', fontWeight: 600, textTransform: 'uppercase' }}
+      >
         Categories
       </Typography>
       <List disablePadding>
         {categories.map((cat) => (
-          <ListItemButton key={cat.label} sx={{ py: 0.5 }}>
+          <ListItemButton key={cat.label} sx={{ py: 0.5, borderRadius: '0.5rem' }}>
             <ListItemIcon sx={{ minWidth: 28 }}>
               <FiberManualRecordIcon sx={{ fontSize: 10, color: cat.color }} />
             </ListItemIcon>
@@ -85,6 +108,9 @@ function EmailSidebar({ active }: { active: string }) {
 
 export default function EmailComposePage() {
   const theme = useTheme();
+  const [folderAnchor, setFolderAnchor] = React.useState<null | HTMLElement>(null);
+  const [tagAnchor, setTagAnchor] = React.useState<null | HTMLElement>(null);
+  const [moreAnchor, setMoreAnchor] = React.useState<null | HTMLElement>(null);
 
   return (
     <Box>
@@ -94,12 +120,44 @@ export default function EmailComposePage() {
           <Box sx={{ display: 'flex', gap: 3 }}>
             <EmailSidebar active="Inbox" />
             <Divider orientation="vertical" flexItem />
+
             <Box sx={{ flex: 1 }}>
               {/* Toolbar */}
-              <Box sx={{ display: 'flex', gap: 1, mb: 2 }}>
+              <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5, mb: 2 }}>
                 <IconButton size="small"><ArchiveIcon fontSize="small" /></IconButton>
                 <IconButton size="small"><ReportIcon fontSize="small" /></IconButton>
                 <IconButton size="small"><DeleteIcon fontSize="small" /></IconButton>
+                <Divider orientation="vertical" flexItem sx={{ mx: 1, height: 24, alignSelf: 'center' }} />
+
+                {/* Folder dropdown */}
+                <IconButton size="small" onClick={(e) => setFolderAnchor(e.currentTarget)}>
+                  <FolderIcon fontSize="small" />
+                </IconButton>
+                <Menu anchorEl={folderAnchor} open={Boolean(folderAnchor)} onClose={() => setFolderAnchor(null)}>
+                  <MenuItem onClick={() => setFolderAnchor(null)}>Inbox</MenuItem>
+                  <MenuItem onClick={() => setFolderAnchor(null)}>Archive</MenuItem>
+                  <MenuItem onClick={() => setFolderAnchor(null)}>Spam</MenuItem>
+                </Menu>
+
+                {/* Tag dropdown */}
+                <IconButton size="small" onClick={(e) => setTagAnchor(e.currentTarget)}>
+                  <LabelIcon fontSize="small" />
+                </IconButton>
+                <Menu anchorEl={tagAnchor} open={Boolean(tagAnchor)} onClose={() => setTagAnchor(null)}>
+                  <MenuItem onClick={() => setTagAnchor(null)}>Work</MenuItem>
+                  <MenuItem onClick={() => setTagAnchor(null)}>Private</MenuItem>
+                  <MenuItem onClick={() => setTagAnchor(null)}>Support</MenuItem>
+                </Menu>
+
+                {/* More dropdown */}
+                <IconButton size="small" onClick={(e) => setMoreAnchor(e.currentTarget)}>
+                  <MoreVertIcon fontSize="small" />
+                </IconButton>
+                <Menu anchorEl={moreAnchor} open={Boolean(moreAnchor)} onClose={() => setMoreAnchor(null)}>
+                  <MenuItem onClick={() => setMoreAnchor(null)}>Mark as read</MenuItem>
+                  <MenuItem onClick={() => setMoreAnchor(null)}>Mark as unread</MenuItem>
+                  <MenuItem onClick={() => setMoreAnchor(null)}>Print</MenuItem>
+                </Menu>
               </Box>
               <Divider sx={{ mb: 2 }} />
 
@@ -109,24 +167,27 @@ export default function EmailComposePage() {
               <TextField
                 fullWidth
                 multiline
-                rows={6}
-                placeholder="Write your email here..."
+                rows={15}
+                placeholder="Write your message here..."
                 sx={{ mb: 2 }}
               />
 
-              {/* Attachment */}
+              {/* Attachment drop area */}
               <Box
                 sx={{
                   border: `2px dashed ${theme.palette.divider}`,
                   borderRadius: 2,
-                  p: 2,
+                  p: 3,
                   textAlign: 'center',
                   mb: 3,
                   cursor: 'pointer',
-                  '&:hover': { borderColor: theme.palette.primary.main, bgcolor: alpha(theme.palette.primary.main, 0.02) },
+                  '&:hover': {
+                    borderColor: theme.palette.primary.main,
+                    bgcolor: alpha(theme.palette.primary.main, 0.02),
+                  },
                 }}
               >
-                <AttachFileIcon sx={{ color: 'text.secondary', mr: 1 }} />
+                <AttachFileIcon sx={{ color: theme.palette.text.secondary, mr: 1 }} />
                 <Typography variant="body2" color="text.secondary" component="span">
                   Drag files here or click to attach
                 </Typography>
@@ -134,7 +195,7 @@ export default function EmailComposePage() {
 
               {/* Actions */}
               <Box sx={{ display: 'flex', gap: 2 }}>
-                <Button variant="contained" color="primary" startIcon={<SendIcon />}>Send</Button>
+                <Button variant="contained" startIcon={<SendIcon />}>Send</Button>
                 <Button variant="outlined" color="error">Discard</Button>
               </Box>
             </Box>
@@ -144,5 +205,3 @@ export default function EmailComposePage() {
     </Box>
   );
 }
-
-export { EmailSidebar };

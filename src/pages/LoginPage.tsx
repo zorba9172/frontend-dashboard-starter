@@ -67,7 +67,7 @@ const LoginPage: React.FC = () => {
               fullWidth
               label="Email"
               type="email"
-              placeholder="Enter your email"
+              defaultValue="demo@example.com"
             />
 
             <TextField

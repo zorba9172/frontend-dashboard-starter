@@ -6,7 +6,6 @@ import {
   CardMedia,
   Grid,
   Typography,
-  Avatar,
   IconButton,
   Button,
   Menu,
@@ -16,7 +15,6 @@ import {
   DialogContent,
   DialogActions,
   TextField,
-  Divider,
 } from '@mui/material';
 import { useTheme, alpha } from '@mui/material/styles';
 import AddIcon from '@mui/icons-material/Add';
@@ -24,116 +22,61 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
 import PhoneOutlinedIcon from '@mui/icons-material/PhoneOutlined';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
+import CalendarTodayOutlinedIcon from '@mui/icons-material/CalendarTodayOutlined';
+import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
+import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 
 import { palette, semantic } from '../theme';
-import pic3 from '../assets/images/profile/small/pic3.jpg';
-import pic4 from '../assets/images/profile/small/pic4.jpg';
-import pic5 from '../assets/images/profile/small/pic5.jpg';
-import pic6 from '../assets/images/profile/small/pic6.jpg';
-import pic7 from '../assets/images/profile/small/pic7.jpg';
-import pic8 from '../assets/images/profile/small/pic8.jpg';
+import img1 from '../assets/images/task/img1.jpg';
+import img2 from '../assets/images/task/img2.jpg';
+import img3 from '../assets/images/task/img3.jpg';
+import img4 from '../assets/images/task/img4.jpg';
+import img5 from '../assets/images/task/img5.jpg';
+import img6 from '../assets/images/task/img6.jpg';
+import img7 from '../assets/images/task/img7.jpg';
+import img8 from '../assets/images/task/img8.jpg';
 
 // ── Types ──
 interface Task {
-  id: string;
-  taskId: string;
-  title: string;
-  createdDate: string;
-  deadline: string;
-  clientName: string;
-  clientAvatar: string;
+  id: number;
   image: string;
+  Cust_Id: string;
+  title: string;
+  Date_Join: string;
+  deadlineDate: string;
+  Cust_Name: string;
+  Location: string;
 }
-
-// ── Placeholder task images (gradient boxes) ──
-const taskGradients = [
-  `linear-gradient(135deg, ${palette.primary.main} 0%, ${palette.secondary.main} 100%)`,
-  'linear-gradient(135deg, #FFA26D 0%, #FFCF6D 100%)',
-  'linear-gradient(135deg, #4dedf5 0%, #480ceb 100%)',
-  'linear-gradient(135deg, #51f5ae 0%, #3fbcda 100%)',
-  `linear-gradient(135deg, ${palette.danger.main} 0%, ${palette.secondary.main} 100%)`,
-  `linear-gradient(135deg, ${palette.info.main} 0%, ${palette.primary.main} 100%)`,
-];
 
 // ── Sample Data ──
 const initialTasks: Task[] = [
-  {
-    id: '1',
-    taskId: '#T-00125',
-    title: 'Website Redesign Homepage',
-    createdDate: 'Sep 20, 2024',
-    deadline: 'Dec 15, 2024',
-    clientName: 'Jakob Gouse',
-    clientAvatar: pic3,
-    image: '',
-  },
-  {
-    id: '2',
-    taskId: '#T-00126',
-    title: 'Mobile App UI Design',
-    createdDate: 'Oct 1, 2024',
-    deadline: 'Jan 10, 2025',
-    clientName: 'Gretchen Aminoff',
-    clientAvatar: pic4,
-    image: '',
-  },
-  {
-    id: '3',
-    taskId: '#T-00127',
-    title: 'API Integration Module',
-    createdDate: 'Oct 12, 2024',
-    deadline: 'Dec 28, 2024',
-    clientName: 'Davis Siphron',
-    clientAvatar: pic5,
-    image: '',
-  },
-  {
-    id: '4',
-    taskId: '#T-00128',
-    title: 'Payment Gateway Setup',
-    createdDate: 'Nov 3, 2024',
-    deadline: 'Feb 1, 2025',
-    clientName: 'Zaire Lubin',
-    clientAvatar: pic6,
-    image: '',
-  },
-  {
-    id: '5',
-    taskId: '#T-00129',
-    title: 'Admin Dashboard Charts',
-    createdDate: 'Nov 15, 2024',
-    deadline: 'Jan 20, 2025',
-    clientName: 'Andi Lane',
-    clientAvatar: pic7,
-    image: '',
-  },
-  {
-    id: '6',
-    taskId: '#T-00130',
-    title: 'Email Template Builder',
-    createdDate: 'Dec 1, 2024',
-    deadline: 'Mar 5, 2025',
-    clientName: 'Haylie Workman',
-    clientAvatar: pic8,
-    image: '',
-  },
+  { id: 1, image: img1, Cust_Id: '#C01234', title: 'Redesign Landing Page', Date_Join: '19 Jan 2021', deadlineDate: '30 Jan 2021', Cust_Name: 'Massed Lzem', Location: 'New York' },
+  { id: 2, image: img2, Cust_Id: '#C01235', title: 'Build CRM Dashboard', Date_Join: '20 Jan 2021', deadlineDate: '15 Feb 2021', Cust_Name: 'Tomas Adam', Location: 'Los Angeles' },
+  { id: 3, image: img3, Cust_Id: '#C01236', title: 'Mobile App Prototype', Date_Join: '22 Jan 2021', deadlineDate: '28 Feb 2021', Cust_Name: 'Sarah Wilson', Location: 'Chicago' },
+  { id: 4, image: img4, Cust_Id: '#C01237', title: 'API Integration', Date_Join: '25 Jan 2021', deadlineDate: '10 Mar 2021', Cust_Name: 'David Brown', Location: 'Houston' },
+  { id: 5, image: img5, Cust_Id: '#C01238', title: 'Payment Module', Date_Join: '28 Jan 2021', deadlineDate: '20 Mar 2021', Cust_Name: 'Emily Chen', Location: 'Phoenix' },
+  { id: 6, image: img6, Cust_Id: '#C01239', title: 'Analytics Dashboard', Date_Join: '1 Feb 2021', deadlineDate: '25 Mar 2021', Cust_Name: 'James Miller', Location: 'Philadelphia' },
+  { id: 7, image: img7, Cust_Id: '#C01240', title: 'Email Campaign Tool', Date_Join: '5 Feb 2021', deadlineDate: '30 Mar 2021', Cust_Name: 'Olivia Davis', Location: 'San Antonio' },
+  { id: 8, image: img8, Cust_Id: '#C01241', title: 'User Settings Page', Date_Join: '10 Feb 2021', deadlineDate: '5 Apr 2021', Cust_Name: 'Robert Garcia', Location: 'San Diego' },
 ];
 
 const TaskPage: React.FC = () => {
   const theme = useTheme();
-  const isDark = theme.palette.mode === 'dark';
 
   const [tasks, setTasks] = useState<Task[]>(initialTasks);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const [menuTaskId, setMenuTaskId] = useState<string | null>(null);
+  const [menuTaskId, setMenuTaskId] = useState<number | null>(null);
 
-  // Add Task Dialog
+  // Add dialog state
   const [addOpen, setAddOpen] = useState(false);
-  const [newTitle, setNewTitle] = useState('');
-  const [newDeadline, setNewDeadline] = useState('');
-  const [newClient, setNewClient] = useState('');
+  const [addForm, setAddForm] = useState({ Cust_Id: '', deadlineDate: '', Cust_Name: '', Location: '' });
+  const [addPreview, setAddPreview] = useState<string | null>(null);
 
-  const handleMenuOpen = (event: React.MouseEvent<HTMLElement>, id: string) => {
+  // Edit dialog state
+  const [editOpen, setEditOpen] = useState(false);
+  const [editForm, setEditForm] = useState<Task | null>(null);
+
+  const handleMenuOpen = (event: React.MouseEvent<HTMLElement>, id: number) => {
     setAnchorEl(event.currentTarget);
     setMenuTaskId(id);
   };
@@ -143,147 +86,180 @@ const TaskPage: React.FC = () => {
   };
 
   const handleDelete = () => {
-    if (menuTaskId) {
+    if (menuTaskId !== null) {
       setTasks((prev) => prev.filter((t) => t.id !== menuTaskId));
     }
     handleMenuClose();
   };
 
-  const handleAddSave = () => {
-    if (newTitle.trim()) {
-      const newTask: Task = {
-        id: Date.now().toString(),
-        taskId: `#T-${String(Math.floor(Math.random() * 99999)).padStart(5, '0')}`,
-        title: newTitle,
-        createdDate: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
-        deadline: newDeadline || 'TBD',
-        clientName: newClient || 'Unassigned',
-        clientAvatar: pic3,
-        image: '',
-      };
-      setTasks((prev) => [newTask, ...prev]);
+  const handleEdit = () => {
+    const task = tasks.find((t) => t.id === menuTaskId);
+    if (task) {
+      setEditForm({ ...task });
+      setEditOpen(true);
     }
-    setNewTitle('');
-    setNewDeadline('');
-    setNewClient('');
+    handleMenuClose();
+  };
+
+  const handleEditSave = () => {
+    if (editForm) {
+      setTasks((prev) => prev.map((t) => (t.id === editForm.id ? editForm : t)));
+    }
+    setEditOpen(false);
+    setEditForm(null);
+  };
+
+  const handleAddSave = () => {
+    const newTask: Task = {
+      id: Date.now(),
+      image: img1,
+      Cust_Id: addForm.Cust_Id || '#C00000',
+      title: 'New Task',
+      Date_Join: new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }),
+      deadlineDate: addForm.deadlineDate || 'TBD',
+      Cust_Name: addForm.Cust_Name || 'Unassigned',
+      Location: addForm.Location || 'Unknown',
+    };
+    setTasks((prev) => [newTask, ...prev]);
+    setAddForm({ Cust_Id: '', deadlineDate: '', Cust_Name: '', Location: '' });
+    setAddPreview(null);
     setAddOpen(false);
   };
 
-  const cardSx = {
-    borderRadius: '0.625rem',
-    boxShadow: isDark ? '0 0 2.5rem rgba(0,0,0,0.3)' : '0 0 2.5rem rgba(82,63,105,0.1)',
-    bgcolor: theme.palette.background.paper,
-    overflow: 'hidden',
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setAddPreview(URL.createObjectURL(file));
+    }
+  };
+
+  const textFieldSx = {
+    '& .MuiOutlinedInput-root': {
+      borderRadius: '0.625rem',
+      '& fieldset': { borderColor: theme.palette.divider },
+    },
   };
 
   return (
     <Box sx={{ py: 2 }}>
-      {/* Header */}
-      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3 }}>
-        <Typography variant="h5" sx={{ fontWeight: 600, color: theme.palette.text.primary }}>
-          Tasks
-        </Typography>
+      {/* Top bar */}
+      <Box sx={{ display: 'flex', justifyContent: 'flex-end', mb: 3 }}>
         <Button
           variant="contained"
           startIcon={<AddIcon />}
           onClick={() => setAddOpen(true)}
           sx={{
-            bgcolor: palette.primary.main,
-            '&:hover': { bgcolor: palette.primary.dark },
             textTransform: 'none',
-            borderRadius: '0.625rem',
-            fontWeight: 600,
+            borderRadius: '1.75rem',
+            fontWeight: 500,
+            px: 3,
           }}
         >
           Add New Task
         </Button>
       </Box>
 
-      {/* Task Grid */}
+      {/* Task Cards Grid */}
       <Grid container spacing={3}>
-        {tasks.map((task, index) => (
-          <Grid key={task.id} size={{ xs: 12, sm: 6, xl: 4 }}>
-            <Card sx={cardSx}>
-              {/* Task Image / Gradient Placeholder */}
+        {tasks.map((task) => (
+          <Grid key={task.id} size={{ xs: 12, sm: 6, md: 6, lg: 6, xl: 4 }}>
+            <Card>
+              {/* Task Image */}
               <CardMedia
-                component="div"
-                sx={{
-                  height: 140,
-                  background: taskGradients[index % taskGradients.length],
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}
-              >
-                <Typography sx={{ color: palette.primary.contrastText, fontWeight: 700, fontSize: '1.5rem', opacity: 0.5 }}>
-                  {task.taskId}
-                </Typography>
-              </CardMedia>
-
-              <CardContent sx={{ p: 2.5 }}>
-                {/* Top Row */}
-                <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 1 }}>
+                component="img"
+                image={task.image}
+                alt={task.title}
+                sx={{ height: 200, objectFit: 'cover' }}
+              />
+              <CardContent>
+                {/* Top: ID + dropdown */}
+                <Box
+                  sx={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'flex-start',
+                    mb: 1,
+                  }}
+                >
                   <Box>
-                    <Typography sx={{ fontSize: '0.75rem', color: palette.primary.main, fontWeight: 600, mb: 0.25 }}>
-                      {task.taskId}
+                    <Typography
+                      sx={{
+                        fontSize: '0.875rem',
+                        fontWeight: 500,
+                        color: palette.primary.main,
+                        mb: 0.25,
+                      }}
+                    >
+                      {task.Cust_Id}
                     </Typography>
-                    <Typography sx={{ fontWeight: 600, fontSize: '1rem', color: theme.palette.text.primary }}>
+                    <Typography
+                      sx={{
+                        fontSize: '1rem',
+                        fontWeight: 600,
+                        color: theme.palette.text.primary,
+                      }}
+                    >
                       {task.title}
                     </Typography>
                   </Box>
                   <IconButton size="small" onClick={(e) => handleMenuOpen(e, task.id)}>
-                    <MoreVertIcon sx={{ color: semantic.iconDisabled, fontSize: 20 }} />
+                    <MoreVertIcon sx={{ color: semantic.iconMuted, fontSize: 20 }} />
                   </IconButton>
                 </Box>
 
-                {/* Dates */}
-                <Box sx={{ display: 'flex', gap: 3, mb: 2 }}>
-                  <Box>
-                    <Typography sx={{ fontSize: '0.7rem', color: theme.palette.text.secondary, mb: 0.25 }}>
-                      Created
-                    </Typography>
-                    <Typography sx={{ fontSize: '0.8rem', fontWeight: 500, color: theme.palette.text.primary }}>
-                      {task.createdDate}
-                    </Typography>
-                  </Box>
-                  <Box>
-                    <Typography sx={{ fontSize: '0.7rem', color: theme.palette.text.secondary, mb: 0.25 }}>
-                      Deadline
-                    </Typography>
-                    <Typography sx={{ fontSize: '0.8rem', fontWeight: 500, color: theme.palette.text.primary }}>
-                      {task.deadline}
-                    </Typography>
-                  </Box>
+                {/* Date */}
+                <Typography
+                  sx={{ fontSize: '0.875rem', color: theme.palette.text.secondary, mb: 1 }}
+                >
+                  {task.Date_Join}
+                </Typography>
+
+                {/* Deadline */}
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5, mb: 1 }}>
+                  <CalendarTodayOutlinedIcon
+                    sx={{ fontSize: 14, color: theme.palette.text.secondary }}
+                  />
+                  <Typography sx={{ fontSize: '0.875rem', color: theme.palette.text.secondary }}>
+                    Deadline: {task.deadlineDate}
+                  </Typography>
                 </Box>
 
-                <Divider sx={{ borderColor: theme.palette.divider, mb: 2 }} />
-
                 {/* Client */}
-                <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                    <Avatar src={task.clientAvatar} sx={{ width: 28, height: 28 }} />
-                    <Typography sx={{ fontSize: '0.8rem', fontWeight: 500, color: theme.palette.text.primary }}>
-                      {task.clientName}
-                    </Typography>
-                  </Box>
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5, mb: 1 }}>
+                  <PersonOutlineIcon
+                    sx={{ fontSize: 14, color: theme.palette.text.secondary }}
+                  />
+                  <Typography sx={{ fontSize: '0.875rem', color: theme.palette.text.secondary }}>
+                    {task.Cust_Name}
+                  </Typography>
+                </Box>
 
-                  {/* Action Icons */}
-                  <Box sx={{ display: 'flex', gap: 0.5 }}>
-                    {[EmailOutlinedIcon, PhoneOutlinedIcon, InfoOutlinedIcon].map((Icon, i) => (
-                      <IconButton
-                        key={i}
-                        size="small"
-                        sx={{
-                          width: 28,
-                          height: 28,
-                          bgcolor: alpha(palette.primary.main, 0.1),
-                          '&:hover': { bgcolor: alpha(palette.primary.main, 0.2) },
-                        }}
-                      >
-                        <Icon sx={{ fontSize: 14, color: palette.primary.main }} />
-                      </IconButton>
-                    ))}
-                  </Box>
+                {/* Location */}
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5, mb: 2 }}>
+                  <LocationOnOutlinedIcon
+                    sx={{ fontSize: 14, color: theme.palette.text.secondary }}
+                  />
+                  <Typography sx={{ fontSize: '0.875rem', color: theme.palette.text.secondary }}>
+                    {task.Location}
+                  </Typography>
+                </Box>
+
+                {/* Action buttons row */}
+                <Box sx={{ display: 'flex', gap: 1 }}>
+                  {[EmailOutlinedIcon, PhoneOutlinedIcon, InfoOutlinedIcon].map((Icon, i) => (
+                    <IconButton
+                      key={i}
+                      size="small"
+                      sx={{
+                        width: 36,
+                        height: 36,
+                        bgcolor: alpha(palette.primary.main, 0.1),
+                        '&:hover': { bgcolor: alpha(palette.primary.main, 0.2) },
+                      }}
+                    >
+                      <Icon sx={{ fontSize: 16, color: palette.primary.main }} />
+                    </IconButton>
+                  ))}
                 </Box>
               </CardContent>
             </Card>
@@ -292,77 +268,79 @@ const TaskPage: React.FC = () => {
       </Grid>
 
       {/* Dropdown Menu */}
-      <Menu
-        anchorEl={anchorEl}
-        open={Boolean(anchorEl)}
-        onClose={handleMenuClose}
-        PaperProps={{
-          sx: {
-            bgcolor: theme.palette.background.paper,
-            borderRadius: '0.5rem',
-            boxShadow: '0 4px 20px rgba(0,0,0,0.15)',
-          },
-        }}
-      >
-        <MenuItem onClick={handleMenuClose} sx={{ fontSize: '0.875rem' }}>Edit</MenuItem>
-        <MenuItem onClick={handleDelete} sx={{ fontSize: '0.875rem', color: palette.danger.main }}>Delete</MenuItem>
+      <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleMenuClose}>
+        <MenuItem onClick={handleEdit}>Edit</MenuItem>
+        <MenuItem onClick={handleDelete} sx={{ color: palette.danger.main }}>
+          Delete
+        </MenuItem>
       </Menu>
 
       {/* Add Task Dialog */}
       <Dialog
         open={addOpen}
         onClose={() => setAddOpen(false)}
-        PaperProps={{
-          sx: {
-            borderRadius: '0.625rem',
-            bgcolor: theme.palette.background.paper,
-            minWidth: 420,
-          },
-        }}
+        PaperProps={{ sx: { borderRadius: '0.625rem', minWidth: 440 } }}
       >
         <DialogTitle sx={{ fontWeight: 600, color: theme.palette.text.primary }}>
-          Add New Task
+          Add Task
         </DialogTitle>
         <DialogContent sx={{ display: 'flex', flexDirection: 'column', gap: 2, pt: '8px !important' }}>
+          {/* File upload */}
+          <Box>
+            <Button
+              variant="outlined"
+              component="label"
+              sx={{
+                textTransform: 'none',
+                borderColor: theme.palette.divider,
+                color: theme.palette.text.secondary,
+                width: '100%',
+                py: 2,
+                borderRadius: '0.625rem',
+              }}
+            >
+              Upload Image
+              <input type="file" hidden accept="image/*" onChange={handleFileChange} />
+            </Button>
+            {addPreview && (
+              <Box
+                component="img"
+                src={addPreview}
+                sx={{ width: '100%', height: 120, objectFit: 'cover', borderRadius: '0.625rem', mt: 1 }}
+              />
+            )}
+          </Box>
           <TextField
-            label="Task Title"
+            label="Customer Id"
             size="small"
             fullWidth
-            value={newTitle}
-            onChange={(e) => setNewTitle(e.target.value)}
-            sx={{
-              '& .MuiOutlinedInput-root': {
-                borderRadius: '0.625rem',
-                '& fieldset': { borderColor: theme.palette.divider },
-              },
-            }}
+            value={addForm.Cust_Id}
+            onChange={(e) => setAddForm((f) => ({ ...f, Cust_Id: e.target.value }))}
+            sx={textFieldSx}
           />
           <TextField
-            label="Deadline"
+            label="Deadline Date"
             size="small"
             fullWidth
-            placeholder="e.g. Jan 15, 2025"
-            value={newDeadline}
-            onChange={(e) => setNewDeadline(e.target.value)}
-            sx={{
-              '& .MuiOutlinedInput-root': {
-                borderRadius: '0.625rem',
-                '& fieldset': { borderColor: theme.palette.divider },
-              },
-            }}
+            value={addForm.deadlineDate}
+            onChange={(e) => setAddForm((f) => ({ ...f, deadlineDate: e.target.value }))}
+            sx={textFieldSx}
           />
           <TextField
-            label="Client Name"
+            label="Client (Cust_Name)"
             size="small"
             fullWidth
-            value={newClient}
-            onChange={(e) => setNewClient(e.target.value)}
-            sx={{
-              '& .MuiOutlinedInput-root': {
-                borderRadius: '0.625rem',
-                '& fieldset': { borderColor: theme.palette.divider },
-              },
-            }}
+            value={addForm.Cust_Name}
+            onChange={(e) => setAddForm((f) => ({ ...f, Cust_Name: e.target.value }))}
+            sx={textFieldSx}
+          />
+          <TextField
+            label="Location"
+            size="small"
+            fullWidth
+            value={addForm.Location}
+            onChange={(e) => setAddForm((f) => ({ ...f, Location: e.target.value }))}
+            sx={textFieldSx}
           />
         </DialogContent>
         <DialogActions sx={{ px: 3, pb: 2 }}>
@@ -370,20 +348,74 @@ const TaskPage: React.FC = () => {
             onClick={() => setAddOpen(false)}
             sx={{ textTransform: 'none', color: theme.palette.text.secondary }}
           >
-            Cancel
+            Discard
           </Button>
           <Button
             variant="contained"
             onClick={handleAddSave}
-            sx={{
-              bgcolor: palette.primary.main,
-              '&:hover': { bgcolor: palette.primary.dark },
-              textTransform: 'none',
-              borderRadius: '0.625rem',
-              fontWeight: 600,
-            }}
+            sx={{ textTransform: 'none', borderRadius: '0.625rem', fontWeight: 600 }}
           >
-            Add Task
+            Add
+          </Button>
+        </DialogActions>
+      </Dialog>
+
+      {/* Edit Task Dialog */}
+      <Dialog
+        open={editOpen}
+        onClose={() => setEditOpen(false)}
+        PaperProps={{ sx: { borderRadius: '0.625rem', minWidth: 440 } }}
+      >
+        <DialogTitle sx={{ fontWeight: 600, color: theme.palette.text.primary }}>
+          Edit Task
+        </DialogTitle>
+        <DialogContent sx={{ display: 'flex', flexDirection: 'column', gap: 2, pt: '8px !important' }}>
+          <TextField
+            label="Customer Id"
+            size="small"
+            fullWidth
+            value={editForm?.Cust_Id ?? ''}
+            onChange={(e) => setEditForm((f) => f ? { ...f, Cust_Id: e.target.value } : f)}
+            sx={textFieldSx}
+          />
+          <TextField
+            label="Deadline Date"
+            size="small"
+            fullWidth
+            value={editForm?.deadlineDate ?? ''}
+            onChange={(e) => setEditForm((f) => f ? { ...f, deadlineDate: e.target.value } : f)}
+            sx={textFieldSx}
+          />
+          <TextField
+            label="Client (Cust_Name)"
+            size="small"
+            fullWidth
+            value={editForm?.Cust_Name ?? ''}
+            onChange={(e) => setEditForm((f) => f ? { ...f, Cust_Name: e.target.value } : f)}
+            sx={textFieldSx}
+          />
+          <TextField
+            label="Location"
+            size="small"
+            fullWidth
+            value={editForm?.Location ?? ''}
+            onChange={(e) => setEditForm((f) => f ? { ...f, Location: e.target.value } : f)}
+            sx={textFieldSx}
+          />
+        </DialogContent>
+        <DialogActions sx={{ px: 3, pb: 2 }}>
+          <Button
+            onClick={() => setEditOpen(false)}
+            sx={{ textTransform: 'none', color: theme.palette.text.secondary }}
+          >
+            Discard
+          </Button>
+          <Button
+            variant="contained"
+            onClick={handleEditSave}
+            sx={{ textTransform: 'none', borderRadius: '0.625rem', fontWeight: 600 }}
+          >
+            Save
           </Button>
         </DialogActions>
       </Dialog>

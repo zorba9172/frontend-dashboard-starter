@@ -14,6 +14,7 @@ import {
   ListItemText,
   IconButton,
   Button,
+  Link as MuiLink,
 } from '@mui/material';
 import { useTheme, alpha } from '@mui/material/styles';
 import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
@@ -43,7 +44,6 @@ const currentMenuItems: MenuEntry[] = [
 
 const MenuPage: React.FC = () => {
   const theme = useTheme();
-  const isDark = theme.palette.mode === 'dark';
   const [selectedMenu, setSelectedMenu] = useState('main');
   const [checked, setChecked] = useState<string[]>([]);
 
@@ -55,26 +55,36 @@ const MenuPage: React.FC = () => {
 
   return (
     <Box sx={{ py: 2 }}>
-      <Typography variant="h4" fontWeight={700} sx={{ mb: 3 }}>
-        Menu Management
-      </Typography>
-
       {/* Menu selector */}
       <Card sx={{ mb: 3 }}>
         <CardContent>
-          <Typography variant="subtitle2" fontWeight={600} sx={{ mb: 1 }}>
-            Select Menu
-          </Typography>
-          <Select
-            size="small"
-            value={selectedMenu}
-            onChange={(e) => setSelectedMenu(e.target.value)}
-            sx={{ minWidth: 250 }}
-          >
-            <MenuItem value="main">Main Menu</MenuItem>
-            <MenuItem value="footer">Footer Menu</MenuItem>
-            <MenuItem value="sidebar">Sidebar Menu</MenuItem>
-          </Select>
+          <Box sx={{ display: 'flex', gap: 2, alignItems: 'center', flexWrap: 'wrap' }}>
+            <Select
+              size="small"
+              value={selectedMenu}
+              onChange={(e) => setSelectedMenu(e.target.value)}
+              sx={{ minWidth: 250 }}
+            >
+              <MenuItem value="main">Main Menu</MenuItem>
+              <MenuItem value="footer">Footer Menu</MenuItem>
+              <MenuItem value="page">Page Menu</MenuItem>
+            </Select>
+            <Button variant="contained" color="primary">
+              Select
+            </Button>
+            <MuiLink
+              component="button"
+              variant="body2"
+              sx={{
+                color: palette.primary.main,
+                textDecoration: 'none',
+                cursor: 'pointer',
+                fontWeight: 500,
+              }}
+            >
+              or create new menu
+            </MuiLink>
+          </Box>
         </CardContent>
       </Card>
 
@@ -83,9 +93,6 @@ const MenuPage: React.FC = () => {
         <Grid size={{ xs: 12, md: 5 }}>
           <Card>
             <CardContent>
-              <Typography variant="h6" fontWeight={700} sx={{ mb: 2 }}>
-                Available Items
-              </Typography>
               <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.5 }}>
                 {availableItems.map((item) => (
                   <FormControlLabel
@@ -118,9 +125,6 @@ const MenuPage: React.FC = () => {
         <Grid size={{ xs: 12, md: 7 }}>
           <Card>
             <CardContent>
-              <Typography variant="h6" fontWeight={700} sx={{ mb: 2 }}>
-                Menu Structure
-              </Typography>
               <List disablePadding>
                 {currentMenuItems.map((item) => (
                   <ListItem
@@ -154,13 +158,6 @@ const MenuPage: React.FC = () => {
           </Card>
         </Grid>
       </Grid>
-
-      {/* Save Button */}
-      <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: 3 }}>
-        <Button variant="contained" color="primary" size="large">
-          Save Menu
-        </Button>
-      </Box>
     </Box>
   );
 };

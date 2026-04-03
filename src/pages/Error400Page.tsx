@@ -33,7 +33,7 @@ const Error400Page: React.FC = () => {
           Bad Request
         </Typography>
         <Typography variant="body1" sx={{ color: 'text.secondary', mb: 4 }}>
-          Your Request resulted in an error.
+          Your Request resulted in an error
         </Typography>
         <Button
           variant="contained"
