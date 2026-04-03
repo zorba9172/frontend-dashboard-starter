@@ -141,11 +141,11 @@ function getComponentOverrides(mode: 'light' | 'dark'): ThemeOptions['components
           borderRadius: spacingTokens.radius,
           boxShadow: mode === 'light' ? shadowTokens.card : shadowTokens.cardDark,
           border: `1px solid ${tokens.border}`,
-          transition: 'box-shadow 0.3s ease, transform 0.3s ease',
+          transition: 'box-shadow 0.2s ease',
           '&:hover': {
             boxShadow: mode === 'light'
-              ? '0rem 0.25rem 3rem 0rem rgba(82,63,105,0.15)'
-              : '0rem 0.25rem 3rem 0rem rgba(0,0,0,0.4)',
+              ? '0 2px 8px 0 rgba(0,0,0,0.06)'
+              : '0 2px 8px 0 rgba(0,0,0,0.18)',
           },
         },
       },

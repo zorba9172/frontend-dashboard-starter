@@ -123,8 +123,8 @@ export const spacing = {
 
 // ── Shadow ──
 export const shadows = {
-  card: '0rem 0rem 2.5rem 0rem rgba(82,63,105,0.1)',
-  cardDark: '0rem 0rem 2.5rem 0rem rgba(0,0,0,0.3)',
+  card: '0 1px 3px 0 rgba(0,0,0,0.04)',
+  cardDark: '0 1px 3px 0 rgba(0,0,0,0.12)',
 } as const;
 
 // ── Sidebar dimensions ──
