@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useThemeContext } from '../context/ThemeContext';
-import DashboardHome from './DashboardHome';
+import DashboardHome from '../DashboardHome';
 
 const DashboardDark: React.FC = () => {
   const { setMode } = useThemeContext();

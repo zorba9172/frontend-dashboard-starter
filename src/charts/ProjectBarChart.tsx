@@ -20,12 +20,12 @@ const ProjectBarChart: React.FC = () => {
       type: 'category' as const,
       data: ['Sun', 'Mon', 'Tues', 'Wed', 'Thu', 'Fri', 'Sat'],
       axisLine: { lineStyle: { color: t.axisLineColor } },
-      axisLabel: { color: t.axisLabelColor, fontFamily: 'Poppins', fontSize: 13 },
+      axisLabel: { color: t.axisLabelColor, fontFamily: 'Inter Variable', fontSize: 13 },
       axisTick: { show: false },
     },
     yAxis: {
       type: 'value' as const,
-      axisLabel: { color: t.axisLabelColor, fontFamily: 'Poppins', fontSize: 13 },
+      axisLabel: { color: t.axisLabelColor, fontFamily: 'Inter Variable', fontSize: 13 },
       splitLine: { lineStyle: { color: t.splitLineColor } },
     },
     series: [

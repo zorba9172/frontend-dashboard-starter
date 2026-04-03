@@ -84,11 +84,11 @@ export const gradients = {
 } as const;
 
 // ── Typography ──
-// Heebo is placed first for Hebrew support, Roboto for Latin, Poppins for display
+// Heebo is placed first for Hebrew support, Roboto for Latin, Inter for display
 export const typography = {
-  fontFamilyBase: '"Heebo Variable", "Roboto", "Poppins", sans-serif',
-  fontFamilyTitle: '"Heebo Variable", "Roboto", "Poppins", sans-serif',
-  fontFamilyPoppins: '"Poppins", "Heebo Variable", sans-serif',
+  fontFamilyBase: '"Heebo Variable", "Roboto", "Inter Variable", sans-serif',
+  fontFamilyTitle: '"Heebo Variable", "Roboto", "Inter Variable", sans-serif',
+  fontFamilyInter: '"Inter Variable", "Heebo Variable", sans-serif',
   fontFamilyOpenSans: '"Open Sans", "Heebo Variable", sans-serif',
   fontFamilyNunitoSans: '"Nunito Sans", "Heebo Variable", sans-serif',
   fontSizeBase: '1rem',      // 16px

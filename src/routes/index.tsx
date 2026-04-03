@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 import React, { lazy, Suspense } from 'react';
 import { createBrowserRouter, Navigate } from 'react-router-dom';
 import { Box, CircularProgress } from '@mui/material';
@@ -6,49 +7,49 @@ import { DashboardLayout } from '../layouts';
 
 // ── Dashboard pages ──
 const DashboardHome = lazy(() => import('../pages/DashboardHome'));
-const DashboardDark = lazy(() => import('../pages/DashboardDark'));
-const ProjectPage = lazy(() => import('../pages/ProjectPage'));
-const ContactsPage = lazy(() => import('../pages/ContactsPage'));
-const KanbanPage = lazy(() => import('../pages/KanbanPage'));
-const TaskPage = lazy(() => import('../pages/TaskPage'));
-const CalendarPage = lazy(() => import('../pages/CalendarPage'));
-const MessagesPage = lazy(() => import('../pages/MessagesPage'));
+const DashboardDark = lazy(() => import('../pages/_old/DashboardDark'));
+const ProjectPage = lazy(() => import('../pages/_old/ProjectPage'));
+const ContactsPage = lazy(() => import('../pages/_old/ContactsPage'));
+const KanbanPage = lazy(() => import('../pages/_old/KanbanPage'));
+const TaskPage = lazy(() => import('../pages/_old/TaskPage'));
+const CalendarPage = lazy(() => import('../pages/_old/CalendarPage'));
+const MessagesPage = lazy(() => import('../pages/_old/MessagesPage'));
 
 // ── Apps pages ──
-const AppProfilePage = lazy(() => import('../pages/AppProfilePage'));
-const EditProfilePage = lazy(() => import('../pages/EditProfilePage'));
-const PostDetailsPage = lazy(() => import('../pages/PostDetailsPage'));
-const EmailComposePage = lazy(() => import('../pages/EmailComposePage'));
-const EmailInboxPage = lazy(() => import('../pages/EmailInboxPage'));
-const EmailReadPage = lazy(() => import('../pages/EmailReadPage'));
+const AppProfilePage = lazy(() => import('../pages/_old/AppProfilePage'));
+const EditProfilePage = lazy(() => import('../pages/_old/EditProfilePage'));
+const PostDetailsPage = lazy(() => import('../pages/_old/PostDetailsPage'));
+const EmailComposePage = lazy(() => import('../pages/_old/EmailComposePage'));
+const EmailInboxPage = lazy(() => import('../pages/_old/EmailInboxPage'));
+const EmailReadPage = lazy(() => import('../pages/_old/EmailReadPage'));
 
 // ── Shop pages ──
-const ProductGridPage = lazy(() => import('../pages/ProductGridPage'));
-const ProductListPage = lazy(() => import('../pages/ProductListPage'));
-const CheckoutPage = lazy(() => import('../pages/CheckoutPage'));
-const InvoicePage = lazy(() => import('../pages/InvoicePage'));
+const ProductGridPage = lazy(() => import('../pages/_old/ProductGridPage'));
+const ProductListPage = lazy(() => import('../pages/_old/ProductListPage'));
+const CheckoutPage = lazy(() => import('../pages/_old/CheckoutPage'));
+const InvoicePage = lazy(() => import('../pages/_old/InvoicePage'));
 
 // ── CMS pages ──
-const ContentPage = lazy(() => import('../pages/ContentPage'));
-const MenuPage = lazy(() => import('../pages/MenuPage'));
-const BlogPage = lazy(() => import('../pages/BlogPage'));
-const EmailTemplatePage = lazy(() => import('../pages/EmailTemplatePage'));
+const ContentPage = lazy(() => import('../pages/_old/ContentPage'));
+const MenuPage = lazy(() => import('../pages/_old/MenuPage'));
+const BlogPage = lazy(() => import('../pages/_old/BlogPage'));
+const EmailTemplatePage = lazy(() => import('../pages/_old/EmailTemplatePage'));
 
 // ── Widget ──
-const WidgetPage = lazy(() => import('../pages/WidgetPage'));
+const WidgetPage = lazy(() => import('../pages/_old/WidgetPage'));
 
 // ── Auth pages (standalone) ──
-const LoginPage = lazy(() => import('../pages/LoginPage'));
-const RegistrationPage = lazy(() => import('../pages/RegistrationPage'));
-const ForgotPasswordPage = lazy(() => import('../pages/ForgotPasswordPage'));
-const LockScreenPage = lazy(() => import('../pages/LockScreenPage'));
+const LoginPage = lazy(() => import('../pages/_old/LoginPage'));
+const RegistrationPage = lazy(() => import('../pages/_old/RegistrationPage'));
+const ForgotPasswordPage = lazy(() => import('../pages/_old/ForgotPasswordPage'));
+const LockScreenPage = lazy(() => import('../pages/_old/LockScreenPage'));
 
 // ── Error pages (standalone) ──
-const Error400Page = lazy(() => import('../pages/Error400Page'));
-const Error403Page = lazy(() => import('../pages/Error403Page'));
-const Error404Page = lazy(() => import('../pages/Error404Page'));
-const Error500Page = lazy(() => import('../pages/Error500Page'));
-const Error503Page = lazy(() => import('../pages/Error503Page'));
+const Error400Page = lazy(() => import('../pages/_old/Error400Page'));
+const Error403Page = lazy(() => import('../pages/_old/Error403Page'));
+const Error404Page = lazy(() => import('../pages/_old/Error404Page'));
+const Error500Page = lazy(() => import('../pages/_old/Error500Page'));
+const Error503Page = lazy(() => import('../pages/_old/Error503Page'));
 
 // Loading fallback
 const PageLoader: React.FC = () => (

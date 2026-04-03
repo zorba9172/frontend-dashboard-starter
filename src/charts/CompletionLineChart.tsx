@@ -20,7 +20,7 @@ const CompletionLineChart: React.FC = () => {
       type: 'category' as const,
       data: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
       axisLine: { lineStyle: { color: t.axisLineColor } },
-      axisLabel: { color: t.axisLabelColor, fontFamily: 'Poppins', fontSize: 13 },
+      axisLabel: { color: t.axisLabelColor, fontFamily: 'Inter Variable', fontSize: 13 },
       axisTick: { show: false },
       splitLine: { show: true, lineStyle: { color: t.splitLineColor } },
     },
@@ -28,7 +28,7 @@ const CompletionLineChart: React.FC = () => {
       type: 'value' as const,
       axisLabel: {
         color: t.axisLabelColor,
-        fontFamily: 'Poppins',
+        fontFamily: 'Inter Variable',
         fontSize: 14,
         formatter: (v: number) => `${v}k`,
       },
