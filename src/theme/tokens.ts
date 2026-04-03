@@ -91,13 +91,13 @@ export const typography = {
   fontFamilyPoppins: '"Poppins", "Heebo Variable", sans-serif',
   fontFamilyOpenSans: '"Open Sans", "Heebo Variable", sans-serif',
   fontFamilyNunitoSans: '"Nunito Sans", "Heebo Variable", sans-serif',
-  fontSizeBase: '0.9375rem', // 15px — bumped from 14px for readability
-  h1: '2.25rem',     // 36px
-  h2: '1.875rem',    // 30px
-  h3: '1.5rem',      // 24px
-  h4: '1.125rem',    // 18px
-  h5: '1rem',        // 16px
-  h6: '0.9375rem',   // 15px
+  fontSizeBase: '1rem',      // 16px
+  h1: '2.5rem',      // 40px
+  h2: '2rem',        // 32px
+  h3: '1.625rem',    // 26px
+  h4: '1.25rem',     // 20px
+  h5: '1.125rem',    // 18px
+  h6: '1rem',        // 16px
   headingWeight: 500,
   // ── Weight scale ──
   weight: {
